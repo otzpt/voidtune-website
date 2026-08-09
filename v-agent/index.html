@@ -188,6 +188,8 @@ footer.foot{padding:80px clamp(20px,6vw,80px) 40px;border-top:1px solid var(--li
    link resolves through /api/latest at runtime, so a release never leaves
    stale text behind. The only thing that must stay correct by hand is which
    platforms exist. */
+.skip{position:absolute;left:-9999px;top:0;background:var(--accent);color:#0b0e14;padding:10px 16px;z-index:200}
+.skip:focus{left:0}
 .wrap{width:min(1180px,92vw);margin-inline:auto}
 .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint)}
 .lede{color:var(--ink-dim);font-size:15px;line-height:1.75;max-width:60ch}
@@ -254,8 +256,8 @@ footer.foot{padding:80px clamp(20px,6vw,80px) 40px;border-top:1px solid var(--li
 .pill.hot{border-color:rgba(230,180,80,.45);color:var(--accent)}
 .dl{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:18px 20px;border:1px solid var(--line);border-radius:11px;text-decoration:none;transition:.2s var(--ease);background:rgba(15,19,26,.4)}
 .dl:hover{border-color:var(--accent);background:rgba(230,180,80,.06)}
-.dl-os{font-size:14px;color:var(--ink);font-weight:600}
-.dl-kind{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:3px}
+.dl-os{display:block;font-size:14px;color:var(--ink);font-weight:600}
+.dl-kind{display:block;font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:3px}
 .dl-go{font-family:var(--mono);font-size:12px;color:var(--accent);white-space:nowrap}
 
 /* faq */
@@ -282,6 +284,7 @@ footer.foot{border-top:1px solid var(--line);padding:40px 0 56px;position:relati
 </style>
 </head>
 <body>
+<a href="#features" class="skip">Skip to content</a>
 <div id="vt-progress"></div>
 <div class="aurora" data-parallax="0.02"></div><div class="grid-lines"></div><div class="grain"></div>
 
@@ -320,7 +323,7 @@ footer.foot{border-top:1px solid var(--line);padding:40px 0 56px;position:relati
 
   <!-- What it actually looks like. Hand-built chrome, not a screenshot, so it
        stays sharp at any size and costs no image bytes. -->
-  <div class="editor" data-tilt="0.4">
+  <div class="editor" data-tilt="0.4" role="img" aria-label="Screenshot: the V-Agent editor showing a Rust file, file tree, activity bar and status bar">
     <div class="editor-bar">
       <span class="editor-dot"></span><span class="editor-dot"></span><span class="editor-dot"></span>
       <span class="editor-title">main.rs — v-agent</span>
@@ -338,22 +341,22 @@ footer.foot{border-top:1px solid var(--line);padding:40px 0 56px;position:relati
         <div style="margin-top:10px">Cargo.toml</div>
       </div>
       <div class="code">
-        <div class="ln"><span class="n">1</span><span><span class="c">// agent panel: stream a completion, apply the diff</span></span></div>
-        <div class="ln"><span class="n">2</span><span><span class="k">use</span> <span class="t">anyhow</span>::Result;</span></div>
-        <div class="ln"><span class="n">3</span><span></span></div>
-        <div class="ln"><span class="n">4</span><span><span class="k">pub async fn</span> <span class="f">complete</span>(prompt: <span class="k">&amp;</span><span class="t">str</span>) -&gt; <span class="t">Result</span>&lt;<span class="t">String</span>&gt; {</span></div>
-        <div class="ln"><span class="n">5</span><span>    <span class="k">let</span> provider = <span class="t">Provider</span>::<span class="f">from_settings</span>()?;</span></div>
-        <div class="ln"><span class="n">6</span><span>    <span class="k">let</span> <span class="k">mut</span> stream = provider.<span class="f">stream</span>(prompt).<span class="k">await</span>?;</span></div>
-        <div class="ln"><span class="n">7</span><span></span></div>
-        <div class="ln"><span class="n">8</span><span>    <span class="k">while let</span> <span class="p">Some</span>(chunk) = stream.<span class="f">next</span>().<span class="k">await</span> {</span></div>
-        <div class="ln"><span class="n">9</span><span>        buffer.<span class="f">push_str</span>(<span class="k">&amp;</span>chunk?);</span></div>
-        <div class="ln"><span class="n">10</span><span>    }</span></div>
-        <div class="ln"><span class="n">11</span><span>    <span class="p">Ok</span>(buffer)</span></div>
-        <div class="ln"><span class="n">12</span><span>}</span></div>
+        <div class="ln"><span class="n">1</span> <span><span class="c">// agent panel: stream a completion, apply the diff</span></span></div>
+        <div class="ln"><span class="n">2</span> <span><span class="k">use</span> <span class="t">anyhow</span>::Result;</span></div>
+        <div class="ln"><span class="n">3</span> <span></span></div>
+        <div class="ln"><span class="n">4</span> <span><span class="k">pub async fn</span> <span class="f">complete</span>(prompt: <span class="k">&amp;</span><span class="t">str</span>) -&gt; <span class="t">Result</span>&lt;<span class="t">String</span>&gt; {</span></div>
+        <div class="ln"><span class="n">5</span> <span>    <span class="k">let</span> provider = <span class="t">Provider</span>::<span class="f">from_settings</span>()?;</span></div>
+        <div class="ln"><span class="n">6</span> <span>    <span class="k">let</span> <span class="k">mut</span> stream = provider.<span class="f">stream</span>(prompt).<span class="k">await</span>?;</span></div>
+        <div class="ln"><span class="n">7</span> <span></span></div>
+        <div class="ln"><span class="n">8</span> <span>    <span class="k">while let</span> <span class="p">Some</span>(chunk) = stream.<span class="f">next</span>().<span class="k">await</span> {</span></div>
+        <div class="ln"><span class="n">9</span> <span>        buffer.<span class="f">push_str</span>(<span class="k">&amp;</span>chunk?);</span></div>
+        <div class="ln"><span class="n">10</span> <span>    }</span></div>
+        <div class="ln"><span class="n">11</span> <span>    <span class="p">Ok</span>(buffer)</span></div>
+        <div class="ln"><span class="n">12</span> <span>}</span></div>
       </div>
     </div>
     <div class="editor-status">
-      <span><b>main</b> ↑2</span><span>rust-analyzer</span><span>Ln 8, Col 41</span><span>UTF-8</span><span><b>Build &amp; Run</b> F5</span>
+      <span><b>main</b> ↑2</span> <span>rust-analyzer</span> <span>Ln 8, Col 41</span> <span>UTF-8</span> <span><b>Build &amp; Run</b> F5</span>
     </div>
   </div>
 </header>
@@ -407,17 +410,17 @@ footer.foot{border-top:1px solid var(--line);padding:40px 0 56px;position:relati
   </div>
   <div class="cards">
     <a class="dl" data-latest="v-agent" data-latest-asset="windows-x86_64.zip" href="https://github.com/otzpt/V-Agent/releases/latest">
-      <span><span class="dl-os">Windows</span><span class="dl-kind" data-latest="v-agent" data-latest-asset="windows-x86_64.zip" data-latest-tpl="Portable ZIP · {size}">Portable ZIP</span></span><span class="dl-go">Download →</span></a>
+      <span><div class="dl-os">Windows</div><div class="dl-kind" data-latest="v-agent" data-latest-asset="windows-x86_64.zip" data-latest-tpl="Portable ZIP · {size}">Portable ZIP</div></span> <span class="dl-go">Download →</span></a>
     <a class="dl" data-latest="v-agent" data-latest-asset=".deb" href="https://github.com/otzpt/V-Agent/releases/latest">
-      <span><span class="dl-os">Debian / Ubuntu</span><span class="dl-kind" data-latest="v-agent" data-latest-asset=".deb" data-latest-tpl="DEB package · {size}">DEB package</span></span><span class="dl-go">Download →</span></a>
+      <span><div class="dl-os">Debian / Ubuntu</div><div class="dl-kind" data-latest="v-agent" data-latest-asset=".deb" data-latest-tpl="DEB package · {size}">DEB package</div></span> <span class="dl-go">Download →</span></a>
     <a class="dl" data-latest="v-agent" data-latest-asset="AppImage" href="https://github.com/otzpt/V-Agent/releases/latest">
-      <span><span class="dl-os">Linux</span><span class="dl-kind" data-latest="v-agent" data-latest-asset="AppImage" data-latest-tpl="AppImage · {size}">AppImage</span></span><span class="dl-go">Download →</span></a>
+      <span><div class="dl-os">Linux</div><div class="dl-kind" data-latest="v-agent" data-latest-asset="AppImage" data-latest-tpl="AppImage · {size}">AppImage</div></span> <span class="dl-go">Download →</span></a>
     <a class="dl" data-latest="v-agent" data-latest-asset="pkg.tar.zst" href="https://github.com/otzpt/V-Agent/releases/latest">
-      <span><span class="dl-os">Arch Linux</span><span class="dl-kind" data-latest="v-agent" data-latest-asset="pkg.tar.zst" data-latest-tpl="pkg.tar.zst · {size}">pkg.tar.zst</span></span><span class="dl-go">Download →</span></a>
+      <span><div class="dl-os">Arch Linux</div><div class="dl-kind" data-latest="v-agent" data-latest-asset="pkg.tar.zst" data-latest-tpl="pkg.tar.zst · {size}">pkg.tar.zst</div></span> <span class="dl-go">Download →</span></a>
     <a class="dl" data-latest="v-agent" data-latest-asset="linux-x86_64.tar.gz" href="https://github.com/otzpt/V-Agent/releases/latest">
-      <span><span class="dl-os">Linux tarball</span><span class="dl-kind" data-latest="v-agent" data-latest-asset="linux-x86_64.tar.gz" data-latest-tpl="tar.gz · {size}">tar.gz</span></span><span class="dl-go">Download →</span></a>
+      <span><div class="dl-os">Linux tarball</div><div class="dl-kind" data-latest="v-agent" data-latest-asset="linux-x86_64.tar.gz" data-latest-tpl="tar.gz · {size}">tar.gz</div></span> <span class="dl-go">Download →</span></a>
     <a class="dl" href="https://github.com/otzpt/V-Agent/releases" target="_blank" rel="noreferrer">
-      <span><span class="dl-os">All releases</span><span class="dl-kind">Checksums and notes</span></span><span class="dl-go">GitHub →</span></a>
+      <span><div class="dl-os">All releases</div><div class="dl-kind">Checksums and notes</div></span> <span class="dl-go">GitHub →</span></a>
   </div>
 
   <div style="margin-top:52px">

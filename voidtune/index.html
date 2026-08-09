@@ -391,7 +391,7 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
       <div class="mark"><i class="ring"></i><i class="blur"></i><i class="core"></i></div>
       <div>
         <div class="name">VOIDTUNE</div>
-        <div class="ver">v0.8.17 · GPL-3</div>
+        <div class="ver"><span data-latest="voidtune" data-latest-tpl="{version}">Latest</span> · GPL-3</div>
       </div>
     </a>
     <nav class="nav-links">
@@ -405,7 +405,7 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
     </nav>
     <a href="#download" class="btn btn-violet sm">
       <span>Download</span>
-      <span class="mono" style="font-size:10px;opacity:.7">v0.8.17</span>
+      <span class="mono" style="font-size:10px;opacity:.7" data-latest="voidtune" data-latest-field="version">latest</span>
     </a>
   </div>
 </header>
@@ -436,7 +436,7 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
         <div class="hero-main">
           <div class="hero-status">
             <span class="dot"><i class="pulse-dot"></i><i class="ping"></i></span>
-            <span class="mono-label">System Online · Build 0.8.17</span>
+            <span class="mono-label">System Online · Build <span data-latest="voidtune" data-latest-field="version">latest</span></span>
             <span class="hairline" style="width:3rem"></span>
             <span class="mono-label">Zero Telemetry · GPL-3</span>
           </div>
@@ -455,8 +455,8 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
 
           <div class="hero-cta">
             <a href="#download" class="btn btn-violet" data-magnetic="0.25">
-              <span data-latest="voidtune" data-latest-tpl="Download {version}">Download v0.8.17</span>
-              <span class="mono" style="font-size:12px;opacity:.7">· MSI · 51 MB</span>
+              <span data-latest="voidtune" data-latest-tpl="Download {version}">Download</span>
+              <span class="mono" style="font-size:12px;opacity:.7" data-latest="voidtune" data-latest-tpl="· {kind} · {size}">· Installer</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14"/></svg>
             </a>
             <a href="#manifesto" class="btn btn-ghost">
@@ -466,7 +466,7 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
           </div>
 
           <div class="hero-status" style="margin-top:.75rem">
-            <span class="mono-label" style="color:var(--violet-glow)">NEW IN 0.8.17</span>
+            <span class="mono-label" style="color:var(--violet-glow)">NEW IN <span data-latest="voidtune" data-latest-field="version">THIS RELEASE</span></span>
             <span class="hairline" style="width:2rem"></span>
             <span class="mono-label">real installer wizard · auto-launch on update · silent MSI updates · launch checkbox on finish</span>
           </div>
@@ -479,10 +479,10 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
               <span class="pulse-dot" style="height:6px;width:6px;border-radius:999px;background:var(--destructive)"></span>
             </div>
             <div style="display:flex;flex-direction:column;gap:1rem">
-              <div class="row"><div class="kv"><span class="k">Background CPU</span><span class="warn">11.4%</span></div><div class="line"></div></div>
-              <div class="row"><div class="kv"><span class="k">Input latency</span><span class="warn">12.8 ms</span></div><div class="line"></div></div>
-              <div class="row"><div class="kv"><span class="k">Telemetry calls</span><span class="warn">37 /min</span></div><div class="line"></div></div>
-              <div class="row"><div class="kv"><span class="k">Junk services</span><span class="warn">84 active</span></div><div class="line"></div></div>
+              <div class="row"><div class="kv"><span class="k">Background CPU</span> <span class="warn">11.4%</span></div><div class="line"></div></div>
+              <div class="row"><div class="kv"><span class="k">Input latency</span> <span class="warn">12.8 ms</span></div><div class="line"></div></div>
+              <div class="row"><div class="kv"><span class="k">Telemetry calls</span> <span class="warn">37 /min</span></div><div class="line"></div></div>
+              <div class="row"><div class="kv"><span class="k">Junk services</span> <span class="warn">84 active</span></div><div class="line"></div></div>
             </div>
             <div class="foot">
               <div style="display:flex;align-items:center;justify-content:space-between">
@@ -498,7 +498,7 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
       <div class="stat-strip">
         <div class="cell"><div class="n">160+</div><div class="l">Precision tweaks</div></div>
         <div class="cell"><div class="n">37</div><div class="l">Services managed</div></div>
-        <div class="cell"><div class="n">51 MB</div><div class="l">MSI installer</div></div>
+        <div class="cell"><div class="n" data-latest="voidtune" data-latest-field="size">Installer</div><div class="l">MSI installer</div></div>
         <div class="cell"><div class="n">0</div><div class="l">Lines of telemetry</div></div>
       </div>
     </div>
@@ -543,7 +543,7 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
   <section id="manifesto" class="section">
     <div class="wrap">
       <div class="head-12-3">
-        <div style="grid-column:span 3" class="reveal"><div class="section-tag"><span class="idx">01</span><span class="bar"></span><span>Manifesto</span></div></div>
+        <div style="grid-column:span 3" class="reveal"><div class="section-tag"><span class="idx">01</span> <span class="bar"></span> <span>Manifesto</span></div></div>
         <div class="reveal" style="grid-column:span 9;display:flex;flex-direction:column;gap:2rem">
           <h2 class="mani-head balance">Your machine should answer to <span class="x">you</span> — not to a quarterly earnings call.</h2>
           <div class="mani-cols">
@@ -560,7 +560,7 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
     <div class="wrap">
       <div style="display:flex;flex-direction:column;gap:2rem;margin-bottom:4rem" class="reveal">
         <div style="display:flex;flex-direction:column;gap:.5rem">
-          <div class="section-tag"><span class="idx">02</span><span class="bar"></span><span>Measured Results</span></div>
+          <div class="section-tag"><span class="idx">02</span> <span class="bar"></span> <span>Measured Results</span></div>
         </div>
         <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:2rem">
           <h2 class="big balance" style="max-width:36rem">Numbers, not <span class="x">vibes.</span></h2>
@@ -569,12 +569,12 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
       </div>
 
       <div class="cardgrid c2 c3 reveal">
-        <div class="metric" data-spotlight data-edge><div class="idx">01</div><span class="mono-label">Idle CPU</span><div class="ba"><div class="r"><span class="tag before">before</span><span class="vb">11.4%</span></div><div class="r"><span class="tag after">after</span><span class="va text-gradient">1.2%</span></div></div><div class="delta"><span class="l">delta</span><span class="v">−89%</span></div></div>
-        <div class="metric" data-spotlight data-edge><div class="idx">02</div><span class="mono-label">Input latency</span><div class="ba"><div class="r"><span class="tag before">before</span><span class="vb">12.8 ms</span></div><div class="r"><span class="tag after">after</span><span class="va text-gradient">3.1 ms</span></div></div><div class="delta"><span class="l">delta</span><span class="v">−76%</span></div></div>
-        <div class="metric" data-spotlight data-edge><div class="idx">03</div><span class="mono-label">Boot time</span><div class="ba"><div class="r"><span class="tag before">before</span><span class="vb">42 s</span></div><div class="r"><span class="tag after">after</span><span class="va text-gradient">11 s</span></div></div><div class="delta"><span class="l">delta</span><span class="v">−74%</span></div></div>
-        <div class="metric" data-spotlight data-edge><div class="idx">04</div><span class="mono-label">RAM at idle</span><div class="ba"><div class="r"><span class="tag before">before</span><span class="vb">4.8 GB</span></div><div class="r"><span class="tag after">after</span><span class="va text-gradient">1.6 GB</span></div></div><div class="delta"><span class="l">delta</span><span class="v">−67%</span></div></div>
-        <div class="metric" data-spotlight data-edge><div class="idx">05</div><span class="mono-label">Telemetry endpoints</span><div class="ba"><div class="r"><span class="tag before">before</span><span class="vb">37</span></div><div class="r"><span class="tag after">after</span><span class="va text-gradient">0</span></div></div><div class="delta"><span class="l">delta</span><span class="v">neutralized</span></div></div>
-        <div class="metric" data-spotlight data-edge><div class="idx">06</div><span class="mono-label">Background services</span><div class="ba"><div class="r"><span class="tag before">before</span><span class="vb">188</span></div><div class="r"><span class="tag after">after</span><span class="va text-gradient">62</span></div></div><div class="delta"><span class="l">delta</span><span class="v">−126</span></div></div>
+        <div class="metric" data-spotlight data-edge><div class="idx">01</div><span class="mono-label">Idle CPU</span><div class="ba"><div class="r"><span class="tag before">before</span> <span class="vb">11.4%</span></div><div class="r"><span class="tag after">after</span> <span class="va text-gradient">1.2%</span></div></div><div class="delta"><span class="l">delta</span> <span class="v">−89%</span></div></div>
+        <div class="metric" data-spotlight data-edge><div class="idx">02</div><span class="mono-label">Input latency</span><div class="ba"><div class="r"><span class="tag before">before</span> <span class="vb">12.8 ms</span></div><div class="r"><span class="tag after">after</span> <span class="va text-gradient">3.1 ms</span></div></div><div class="delta"><span class="l">delta</span> <span class="v">−76%</span></div></div>
+        <div class="metric" data-spotlight data-edge><div class="idx">03</div><span class="mono-label">Boot time</span><div class="ba"><div class="r"><span class="tag before">before</span> <span class="vb">42 s</span></div><div class="r"><span class="tag after">after</span> <span class="va text-gradient">11 s</span></div></div><div class="delta"><span class="l">delta</span> <span class="v">−74%</span></div></div>
+        <div class="metric" data-spotlight data-edge><div class="idx">04</div><span class="mono-label">RAM at idle</span><div class="ba"><div class="r"><span class="tag before">before</span> <span class="vb">4.8 GB</span></div><div class="r"><span class="tag after">after</span> <span class="va text-gradient">1.6 GB</span></div></div><div class="delta"><span class="l">delta</span> <span class="v">−67%</span></div></div>
+        <div class="metric" data-spotlight data-edge><div class="idx">05</div><span class="mono-label">Telemetry endpoints</span><div class="ba"><div class="r"><span class="tag before">before</span> <span class="vb">37</span></div><div class="r"><span class="tag after">after</span> <span class="va text-gradient">0</span></div></div><div class="delta"><span class="l">delta</span> <span class="v">neutralized</span></div></div>
+        <div class="metric" data-spotlight data-edge><div class="idx">06</div><span class="mono-label">Background services</span><div class="ba"><div class="r"><span class="tag before">before</span> <span class="vb">188</span></div><div class="r"><span class="tag after">after</span> <span class="va text-gradient">62</span></div></div><div class="delta"><span class="l">delta</span> <span class="v">−126</span></div></div>
       </div>
     </div>
   </section>
@@ -584,7 +584,7 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
     <div class="wrap">
       <div class="head-grid" style="margin-bottom:5rem">
         <div class="reveal" style="grid-column:span 5;display:flex;flex-direction:column;gap:1.5rem">
-          <div class="section-tag"><span class="idx">03</span><span class="bar"></span><span>System Modules</span></div>
+          <div class="section-tag"><span class="idx">03</span> <span class="bar"></span> <span>System Modules</span></div>
           <h2 class="big balance">Surgical, not <span class="x">scorched-earth.</span></h2>
         </div>
         <div class="reveal" style="grid-column:7 / span 6">
@@ -608,7 +608,7 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
     <div class="wrap">
       <div class="head-grid" style="margin-bottom:5rem">
         <div class="reveal" style="grid-column:span 4;display:flex;flex-direction:column;gap:1.5rem">
-          <div class="section-tag"><span class="idx">04</span><span class="bar"></span><span>Process</span></div>
+          <div class="section-tag"><span class="idx">04</span> <span class="bar"></span> <span>Process</span></div>
           <h2 class="big balance">Under a <span class="x">minute</span> from zero to optimized.</h2>
         </div>
       </div>
@@ -719,11 +719,11 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
   <section id="demo3d" class="section dark" data-screen-label="Interactive demo">
     <div class="wrap">
       <div class="d3-intro reveal">
-        <div class="section-tag"><span class="idx">05</span><span class="bar"></span><span>Watch it work</span></div>
+        <div class="section-tag"><span class="idx">05</span> <span class="bar"></span> <span>Watch it work</span></div>
         <h2 class="big balance">From stutter to <span class="x">silk.</span></h2>
         <p class="lede pretty">Install, flip the tweaks, watch the frames pour in. Toggle <span style="color:var(--violet-glow)">OPTIMIZE</span> below — or hit any switch yourself — and see the same machine wake up in real time.</p>
         <div class="d3-chips">
-          <div class="d3-chip"><span class="i">01</span>Download</div>
+          <div class="d3-chip"><span class="i">01</span> Download</div>
           <div class="d3-chip"><span class="i">02</span>Auto-elevate</div>
           <div class="d3-chip"><span class="i">03</span>Apply tweaks</div>
           <div class="d3-chip"><span class="i">04</span>Game on</div>
@@ -879,11 +879,11 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
     <div class="wrap" style="position:relative">
       <div class="cta-grid">
         <div class="cta-copy">
-          <div class="reveal cta-tag"><div class="section-tag"><span class="idx">06</span><span class="bar"></span><span>Acquire</span></div></div>
+          <div class="reveal cta-tag"><div class="section-tag"><span class="idx">06</span> <span class="bar"></span> <span>Acquire</span></div></div>
           <h2 class="balance reveal"><span class="text-gradient">Enter</span> <span class="italic">the void.</span></h2>
           <p class="pretty reveal">Self-contained — no .NET or runtime to install. Open source under GPL-3. Run the MSI for a clean install with Start Menu + Desktop shortcuts and built-in auto-update, or grab the <a data-latest="voidtune" data-latest-asset="portable" href="https://github.com/otzpt/VOIDTUNE/releases/download/v0.8.17/VOIDTUNE-0.8.17-portable-win-x64.zip" style="color:var(--violet-glow)">portable .zip</a>, extract it and run <span class="mono" style="color:var(--violet-glow)">VOIDTUNE.exe</span> as administrator — that's it.</p>
           <div class="btns reveal">
-            <a href="https://github.com/otzpt/VOIDTUNE/releases/download/v0.8.17/VOIDTUNE-0.8.17-Setup.msi" class="btn btn-violet" data-magnetic="0.22" data-latest="voidtune"><span>Download installer</span><span class="mono" style="font-size:12px;opacity:.7" data-latest="voidtune" data-latest-tpl="{kind} · {size}">MSI · 51 MB</span></a>
+            <a href="https://github.com/otzpt/VOIDTUNE/releases/download/v0.8.17/VOIDTUNE-0.8.17-Setup.msi" class="btn btn-violet" data-magnetic="0.22" data-latest="voidtune"><span>Download installer</span><span class="mono" style="font-size:12px;opacity:.7" data-latest="voidtune" data-latest-tpl="{kind} · {size}">Installer</span></a>
             <a href="https://github.com/otzpt/VOIDTUNE/releases/latest" class="btn btn-ghost">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.3-1.7-1.3-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.51-1.47.11-3.06 0 0 .97-.31 3.19 1.18a11.1 11.1 0 0 1 5.81 0c2.21-1.49 3.19-1.18 3.19-1.18.62 1.59.23 2.77.11 3.06.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.42.36.79 1.07.79 2.17v3.22c0 .31.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>
               View release on GitHub
@@ -893,7 +893,7 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
             <div class="cell"><div class="v">GPL-3</div><div class="k">License</div></div>
             <div class="cell"><div class="v">Win 10 / 11</div><div class="k">Platform</div></div>
             <div class="cell"><div class="v">x64</div><div class="k">Arch</div></div>
-            <div class="cell"><div class="v">51 MB</div><div class="k">Installer</div></div>
+            <div class="cell"><div class="v" data-latest="voidtune" data-latest-field="size">—</div><div class="k">Installer</div></div>
           </div>
 
           <div class="reveal" style="margin-top:1.5rem;padding:1rem 1.25rem;border:1px solid rgba(167,139,250,.22);border-radius:14px;background:rgba(139,92,246,.06)">
@@ -936,7 +936,7 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
                   <div class="fx-dl">
                     <div class="zip">
                       <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="#caa6ff" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/><path d="M10 2v4M10 8v1M10 11v1M10 14v1"/></svg>
-                      <div><div class="t">VOIDTUNE-0.8.17-portable.zip</div><div class="meta">Compressed (zipped) folder · 64 MB</div></div>
+                      <div><div class="t">VOIDTUNE-portable.zip</div><div class="meta">Compressed (zipped) folder · 64 MB</div></div>
                     </div>
                     <div class="fx-pbar"><div class="fill"></div></div>
                     <div class="fx-pmeta"><span class="state">Downloading…</span><span class="pct">0%</span></div>
@@ -955,7 +955,7 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
 
               <div class="fx-extract">
                 <div class="card">
-                  <div class="hd"><svg viewBox="0 0 24 24" fill="none" stroke="#caa6ff" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/></svg>Extracting VOIDTUNE-0.8.17-portable.zip</div>
+                  <div class="hd"><svg viewBox="0 0 24 24" fill="none" stroke="#caa6ff" stroke-width="1.6"><path d="M6 2h9l5 5v15H6z"/></svg>Extracting VOIDTUNE-portable.zip</div>
                   <div class="fx-pbar"><div class="fill"></div></div>
                   <div class="fx-pmeta"><span>Copying 20 items…</span><span class="pct">0%</span></div>
                 </div>
@@ -986,12 +986,12 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
 
               <div class="fx-run">
                 <div class="mk"><span class="ring"></span><i></i></div>
-                <div class="txt"><span class="spin"></span>Launching VOIDTUNE 0.8.17</div>
+                <div class="txt"><span class="spin"></span>Launching VOIDTUNE</div>
               </div>
 
               <svg class="fx-cursor" viewBox="0 0 24 24" fill="#f2f4f8" stroke="#0c0c0c" stroke-width="1.2"><path d="M5 3l15 9-6 1.5 3.5 6.5-2.5 1.2L11 14l-4 4z"/></svg>
             </div>
-            <div class="fx-status"><span class="l">Downloading 1 item…</span><span class="r">VOIDTUNE · v0.8.17</span></div>
+            <div class="fx-status"><span class="l">Downloading 1 item…</span><span class="r">VOIDTUNE</span></div>
           </div>
         </div>
       </div>
@@ -1026,7 +1026,7 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
     <div class="wrap">
       <div class="head-grid" style="margin-bottom:4rem">
         <div class="reveal" style="grid-column:span 5;display:flex;flex-direction:column;gap:1.5rem">
-          <div class="section-tag"><span class="idx">07</span><span class="bar"></span><span>Support</span></div>
+          <div class="section-tag"><span class="idx">07</span> <span class="bar"></span> <span>Support</span></div>
           <h2 class="big balance">Stuck? <span class="x">Ask.</span></h2>
         </div>
         <div class="reveal" style="grid-column:7 / span 6">
@@ -1068,7 +1068,7 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
     <div class="foot-brand">
       <div class="row"><div class="mk"><i></i></div><div class="display" style="font-size:1.5rem;letter-spacing:-.01em">VOIDTUNE</div></div>
       <p>A precision optimization suite for Windows. Built by one engineer, audited by many, owned by no one.</p>
-      <div class="chips"><span>GPL-3</span><span>v0.8.17</span><span>Win 10/11</span></div>
+      <div class="chips"><span>GPL-3</span> <span data-latest="voidtune" data-latest-field="version">latest</span><span>Win 10/11</span></div>
     </div>
     <div class="foot-col">
       <span class="mono-label">Suite</span>
