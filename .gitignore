@@ -32,3 +32,6 @@ __pycache__/
 
 # C build output
 c/cpuinfo
+
+# Vite cache
+.vite/

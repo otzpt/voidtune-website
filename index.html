@@ -1,0 +1,1378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <title>VOIDTUNE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #040407;
+            --bg2: #07050f;
+            --bg3: #0a0714;
+            --card: #0c0818;
+            --card2: #130f20;
+            --border: #ffffff0f;
+            --border2: #ffffff08;
+            --text: #f0ecf8;
+            --muted: #6b5880;
+            --dim: #fff6;
+            --pink: #ff2d78;
+            --pink2: #e91e8c;
+            --pink-d: #ff2d7814;
+            --pink-b: #ff2d7847;
+            --pink-g: #ff2d7880;
+            --violet: #a855f7;
+            --violet2: #7c3aed;
+            --violet-d: #a855f714;
+            --violet-b: #a855f747;
+            --magenta: #e040fb;
+            --magenta-d: #e040fb14;
+            --blue: #38bdf8;
+            --blue-d: #38bdf814;
+            --blue-b: #38bdf840;
+            --red: #ff4d6d;
+            --red-d: #ff4d6d14;
+            --red-b: #ff4d6d40;
+            --yellow: #fbbf24;
+            --cyan: #67e8f9;
+            --orange: #fb923c;
+            --font-bebas: 'Bebas Neue', cursive;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-tech: 'Share Tech Mono', monospace;
+            --font-body: 'Space Grotesk', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            font-family: var(--font-body);
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #ff2d7866; }
+
+        /* ===== NAV ===== */
+        nav {
+            z-index: 100;
+            -webkit-backdrop-filter: blur(18px) saturate(1.2);
+            backdrop-filter: blur(18px) saturate(1.2);
+            background: #040407e6;
+            border-bottom: 1px solid #ff2d7814;
+            position: fixed;
+            top: 0; left: 0; right: 0;
+        }
+        .nav-top-bar {
+            border-bottom: 1px solid rgba(255,45,120,0.06);
+            padding: 6px clamp(20px,6%,60px);
+            font-family: var(--font-mono);
+            font-size: 9px;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.18);
+            text-transform: uppercase;
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px clamp(20px,6%,60px);
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .nav-brand .logo-text {
+            font-family: var(--font-mono);
+            font-weight: 800;
+            font-size: 16px;
+            letter-spacing: 3px;
+        }
+        .nav-brand .logo-text .white { color: rgba(255,255,255,0.9); }
+        .nav-brand .logo-text .pink { color: var(--pink); }
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+        }
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.38);
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: color 0.15s;
+        }
+        .nav-links a:hover { color: var(--pink); }
+
+        /* ===== TAGS & PILLS ===== */
+        .tag {
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: var(--font-mono);
+            font-size: 9px;
+            padding: 3px 10px;
+            border: 1px solid;
+            display: inline-block;
+        }
+        .tag-pink { color: var(--pink); border-color: var(--pink-b); background: var(--pink-d); }
+        .tag-violet { color: var(--violet); border-color: var(--violet-b); background: var(--violet-d); }
+        .tag-white { color: rgba(255,255,255,0.65); border-color: rgba(255,255,255,0.12); background: rgba(255,255,255,0.04); }
+        .tag-blue { color: var(--blue); border-color: var(--blue-b); background: var(--blue-d); }
+        .tag-magenta { color: var(--magenta); border-color: #e040fb4d; background: var(--magenta-d); }
+        .tag-red { color: var(--red); border-color: var(--red-b); background: var(--red-d); }
+        .tag-yellow { color: var(--yellow); border-color: #fbbf2440; background: #fbbf2414; }
+        .tag-cyan { color: var(--cyan); border-color: #67e8f940; background: #67e8f914; }
+
+        .sect-pill {
+            letter-spacing: 3px;
+            color: var(--pink);
+            text-transform: uppercase;
+            background: #ff2d780d;
+            border: 1px solid #ff2d784d;
+            border-radius: 999px;
+            align-items: center;
+            gap: 7px;
+            padding: 5px 14px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            display: inline-flex;
+        }
+        .sect-pill::before { content: "×"; opacity: 0.7; font-size: 14px; line-height: 1; }
+        .sect-pill-dim {
+            letter-spacing: 3px;
+            color: var(--muted);
+            text-transform: uppercase;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 999px;
+            align-items: center;
+            gap: 7px;
+            padding: 5px 14px;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            display: inline-flex;
+        }
+        .sect-pill-dim::before { content: "×"; opacity: 0.4; font-size: 14px; line-height: 1; }
+
+        /* ===== BUTTONS ===== */
+        .btn-primary {
+            color: var(--pink);
+            border: 1px solid var(--pink);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: transparent;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            text-decoration: none;
+            transition: all 0.25s;
+            display: inline-flex;
+        }
+        .btn-primary:hover {
+            background: var(--pink);
+            color: #fff;
+            box-shadow: 0 0 24px #ff2d7866;
+        }
+        .btn-outline {
+            color: rgba(255,255,255,0.6);
+            border: 1px solid rgba(255,255,255,0.18);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: transparent;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            text-decoration: none;
+            transition: all 0.25s;
+            display: inline-flex;
+        }
+        .btn-outline:hover { color: #fff; border-color: rgba(255,255,255,0.5); }
+        .btn-violet {
+            color: var(--violet);
+            border: 1px solid var(--violet);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            background: transparent;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            text-decoration: none;
+            transition: all 0.25s;
+            display: inline-flex;
+        }
+        .btn-violet:hover {
+            background: var(--violet);
+            color: #fff;
+            box-shadow: 0 0 20px #a855f766;
+        }
+
+        /* ===== TICKER ===== */
+        .hero-ticker {
+            z-index: 10;
+            background: #ff2d7804;
+            border-top: 1px solid #ff2d781a;
+            border-bottom: 1px solid #ff2d781a;
+            padding: 10px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-ticker-track {
+            white-space: nowrap;
+            gap: 0;
+            width: max-content;
+            animation: ticker 32s linear infinite;
+            display: flex;
+        }
+        .hero-ticker-inner {
+            color: rgba(255,255,255,0.35);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            flex-shrink: 0;
+            gap: 0;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            display: flex;
+        }
+        .ticker-item { white-space: nowrap; padding: 0 40px; }
+        .ticker-dot { color: var(--pink); opacity: 0.6; padding: 0 3px; }
+        @keyframes ticker {
+            0% { transform: translate(0); }
+            100% { transform: translate(-50%); }
+        }
+
+        /* ===== GLOW LINE ===== */
+        .glow-line {
+            background: linear-gradient(90deg, transparent, var(--pink), var(--violet), transparent);
+            opacity: 0.35;
+            height: 1px;
+        }
+
+        /* ===== HERO ===== */
+        .hero-watermark {
+            color: transparent;
+            -webkit-text-stroke: 0.5px #ff2d780f;
+            pointer-events: none;
+            -webkit-user-select: none;
+            user-select: none;
+            letter-spacing: -0.03em;
+            white-space: nowrap;
+            font-family: var(--font-bebas);
+            font-size: clamp(12rem, 28vw, 24rem);
+            line-height: 1;
+            animation: watermark-glitch 7s linear infinite;
+            position: absolute;
+            top: 50%;
+            right: -2%;
+            transform: translateY(-50%);
+        }
+        @keyframes watermark-glitch {
+            0% { filter: none; transform: translateY(-50%) translate(0); }
+            2% { filter: hue-rotate(80deg) saturate(4); transform: translateY(-50%) translate(7px, -2px); }
+            4% { filter: hue-rotate(-50deg); transform: translateY(-50%) translate(-4px, 2px); }
+            5% { filter: none; transform: translateY(-50%) translate(0); }
+            22% { filter: none; transform: translateY(-50%) translate(0); }
+            22.5% { filter: hue-rotate(160deg) saturate(5); transform: translateY(-50%) translate(-10px) skew(-4deg); }
+            23% { filter: brightness(1.6); transform: translateY(-50%) translate(5px, -2px) skew(2deg); }
+            24% { filter: none; transform: translateY(-50%) translate(0); }
+            60% { filter: none; transform: translateY(-50%) translate(0); }
+            60.4% { filter: hue-rotate(120deg) saturate(6); transform: translateY(-50%) translate(12px) scaleX(1.03); }
+            60.9% { filter: hue-rotate(-40deg); transform: translateY(-50%) translate(-6px, 3px) scaleX(0.97); }
+            61.5% { filter: none; transform: translateY(-50%) translate(0); }
+            100% { filter: none; transform: translateY(-50%) translate(0); }
+        }
+
+        .hero-title-void {
+            opacity: 0;
+            animation: heroIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+            display: inline-block;
+        }
+        .hero-title-tune {
+            opacity: 0;
+            animation: heroIn 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.24s forwards;
+            display: inline-block;
+        }
+        @keyframes heroIn {
+            0% { opacity: 0; transform: translateY(36px) skewY(1.5deg); }
+            100% { opacity: 1; transform: translateY(0) skewY(0); }
+        }
+        .text-glow-pink { text-shadow: 0 0 20px #ff2d7880, 0 0 40px #ff2d7833; }
+
+        .blink-dot {
+            animation: blink-dot-anim 1.4s step-end infinite;
+        }
+        @keyframes blink-dot-anim {
+            0%, 49% { opacity: 1; box-shadow: 0 0 8px var(--pink), 0 0 20px #ff2d7880; }
+            50%, 100% { opacity: 0.15; box-shadow: none; }
+        }
+
+        .void-pulse {
+            animation: void-pulse-anim 2.5s ease-in-out infinite;
+        }
+        @keyframes void-pulse-anim {
+            0%, 100% { box-shadow: 0 0 6px #ff2d7880, 0 0 16px #ff2d7833; }
+            50% { box-shadow: 0 0 14px #ff2d78cc, 0 0 32px #ff2d7859, 0 0 60px #a855f726; }
+        }
+
+        .signal-flicker {
+            animation: signal-flicker-anim 4s ease-in-out infinite;
+        }
+        @keyframes signal-flicker-anim {
+            0%, 92%, 100% { opacity: 1; transform: translate(0); }
+            93% { opacity: 0.35; transform: translate(-2px, 1px); }
+            95% { opacity: 0.8; transform: translate(1px, -1px); }
+            97% { opacity: 0.2; transform: translate(-1px); }
+        }
+
+        /* ===== STATEMENT ===== */
+        .statement-glow { text-shadow: 0 0 40px #ff2d7833, 0 0 80px #a855f726; }
+        .outline-pink {
+    -webkit-text-stroke: 2px #ff2d7880;
+    color: transparent !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: transparent !important;
+    text-shadow: 0 0 20px #ff2d7840, 0 0 40px #ff2d7833;
+}
+
+.outline-violet {
+    -webkit-text-stroke: 2px #a855f78c;
+    color: transparent !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    -webkit-text-fill-color: transparent !important;
+    text-shadow: 0 0 20px #a855f740, 0 0 40px #a855f733;
+}
+        /* ===== SECTIONS ===== */
+        .section-padding {
+            padding: 100px clamp(20px, 10%, 160px);
+            position: relative;
+            z-index: 2;
+        }
+        .section-dark { background: var(--bg2); }
+
+        /* ===== TABLES ===== */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th {
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--muted);
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+            padding: 12px 16px;
+            font-family: var(--font-mono);
+            font-size: 9px;
+            font-weight: 400;
+        }
+        td {
+            border-bottom: 1px solid var(--border2);
+            padding: 14px 16px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.75);
+            padding: 18px 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-body);
+            font-size: 14px;
+            transition: color 0.15s;
+        }
+        .faq-question:hover { color: var(--pink); }
+        .faq-answer {
+            display: none;
+            padding-bottom: 18px;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--muted);
+            line-height: 1.8;
+            padding-left: 32px;
+        }
+        .faq-answer.active { display: block; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+            padding: 60px clamp(20px, 10%, 160px) 40px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+    <div class="nav-top-bar">// OPEN SOURCE WINDOWS OPTIMIZATION SUITE · VOID EDITION</div>
+    <div class="nav-inner">
+        <div class="nav-brand">
+            <span class="logo-text"><span class="white">VOID</span><span class="pink">TUNE</span></span>
+            <span class="tag tag-pink">V0.8</span>
+        </div>
+        <div class="nav-links">
+            <a href="#results">RESULTS</a>
+            <a href="#features">FEATURES</a>
+            <a href="#mobile">MOBILE</a>
+            <a href="#compare">COMPARE</a>
+            <a href="#download">DOWNLOAD</a>
+            <a href="#faq">FAQ</a>
+            <a href="#roadmap">ROADMAP</a>
+            <a href='/c-edition'>C EDITION</a>
+            <a href='/v-agent' style='color:var(--violet);'>V-AGENT</a>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section style="position:relative;min-height:100vh;padding-top:76px;overflow:hidden;display:flex;flex-direction:column;">
+    <!-- Background layers -->
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 80% at 65% 40%, rgba(255,45,120,0.12) 0%, transparent 60%);"></div>
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 50% 70% at 85% 70%, rgba(168,85,247,0.1) 0%, transparent 65%);"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(to right, rgba(4,4,7,0.85) 0%, rgba(4,4,7,0.35) 55%, rgba(4,4,7,0.05) 100%);"></div>
+    <div style="position:absolute;inset:0;background:linear-gradient(to bottom, transparent 45%, rgba(4,4,7,1) 100%);"></div>
+    
+    <div class="hero-watermark">VOID</div>
+    
+    <div style="position:relative;z-index:2;flex:1;display:flex;align-items:center;width:100%;">
+        <div style="width:100%;display:grid;grid-template-columns:1fr auto;gap:32px;padding:48px clamp(20px,6%,60px);max-width:1400px;margin:0 auto;">
+            <!-- Left side -->
+            <div>
+                <div style="margin-bottom:28px;"><span class="sect-pill">OPEN SOURCE WINDOWS OPTIMIZATION SUITE</span></div>
+                <h1 style="font-family:var(--font-bebas);font-size:clamp(5rem, 14vw, 12rem);line-height:0.9;margin-bottom:24px;">
+                    <span class="hero-title-void" style="color:rgba(255,255,255,0.92);">VOID</span>
+                    <span class="hero-title-tune text-glow-pink" style="color:var(--pink);">TUNE</span>
+                </h1>
+                <p style="font-family:var(--font-mono);font-size:13px;line-height:1.8;color:rgba(255,255,255,0.55);max-width:480px;margin-bottom:32px;">
+                    Advanced Windows optimization for <span style="color:#ff2d78">gamers</span> and 
+                    <span style="color:#a855f7">power users</span>. 
+                    Tweaks, debloat, services, personalization and diagnostics — all in one dark GUI. 
+                    <strong style="color:rgba(255,255,255,0.8);">Free forever. No telemetry. GPL v3.</strong>
+                </p>
+                <div style="display:flex;gap:12px;margin-bottom:32px;">
+                    <a href="#download" class="btn-primary">DOWNLOAD V0.8</a>
+                    <a href="#features" class="btn-outline">VIEW FEATURES</a>
+                </div>
+                <span class="sect-pill-dim">REAL RESULTS</span>
+            </div>
+            
+            <!-- Right side stats -->
+            <div style="display:flex;flex-direction:column;gap:10px;min-width:275px;">
+                <div style="background:rgba(4,4,7,0.92);border:1px solid rgba(255,45,120,0.12);backdrop-filter:blur(20px);padding:20px 24px;">
+                    <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:3px;color:var(--muted);margin-bottom:18px;text-transform:uppercase;">// VOID METRICS</div>
+                    <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border2);">
+                        <span style="font-family:var(--font-bebas);font-size:2.2rem;color:var(--pink);">70+</span>
+                        <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;">TWEAKS</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border2);">
+                        <span style="font-family:var(--font-bebas);font-size:2.2rem;color:var(--pink);">18</span>
+                        <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;">SERVICES</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border2);">
+                        <span style="font-family:var(--font-bebas);font-size:2.2rem;color:var(--pink);">50+</span>
+                        <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;">AUTO INSTALLS</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;padding:9px 0;">
+                        <span style="font-family:var(--font-bebas);font-size:2.2rem;color:var(--violet);">0</span>
+                        <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;">TELEMETRY</span>
+                    </div>
+                </div>
+                <div style="background:rgba(4,4,7,0.92);border:1px solid rgba(255,45,120,0.15);backdrop-filter:blur(20px);padding:12px 18px;">
+                    <div style="display:flex;align-items:center;gap:8px;">
+                        <span class="blink-dot" style="width:6px;height:6px;border-radius:50%;background:var(--pink);display:inline-block;"></span>
+                        <span style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.4);text-transform:uppercase;">FREE FOREVER · NO SUBSCRIPTION</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ticker at bottom of hero -->
+    <div class="hero-ticker" style="position:relative;z-index:2;">
+        <div class="hero-ticker-track">
+            <div class="hero-ticker-inner">
+                <span class="ticker-item">NO TELEMETRY</span><span class="ticker-dot">◆</span>
+                <span class="ticker-item">OPEN SOURCE</span><span class="ticker-dot">◆</span>
+                <span class="ticker-item">GPL V3</span><span class="ticker-dot">◆</span>
+                <span class="ticker-item">FREE FOREVER</span><span class="ticker-dot">◆</span>
+                <span class="ticker-item">WIN10 / WIN11</span><span class="ticker-dot">◆</span>
+                <span class="ticker-item">PORTABLE</span><span class="ticker-dot">◆</span>
+                <span class="ticker-item">AMD + INTEL + NVIDIA</span><span class="ticker-dot">◆</span>
+                <span class="ticker-item">ZERO ADS</span>
+            </div>
+            <div class="hero-ticker-inner" aria-hidden="true">
+                <span class="ticker-item">NO TELEMETRY</span><span class="ticker-dot">◆</span>
+                <span class="ticker-item">OPEN SOURCE</span><span class="ticker-dot">◆</span>
+                <span class="ticker-item">GPL V3</span><span class="ticker-dot">◆</span>
+                <span class="ticker-item">FREE FOREVER</span><span class="ticker-dot">◆</span>
+                <span class="ticker-item">WIN10 / WIN11</span><span class="ticker-dot">◆</span>
+                <span class="ticker-item">PORTABLE</span><span class="ticker-dot">◆</span>
+                <span class="ticker-item">AMD + INTEL + NVIDIA</span><span class="ticker-dot">◆</span>
+                <span class="ticker-item">ZERO ADS</span>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- STATEMENT SECTION -->
+<section style="background:var(--bg);min-height:60vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+  <div style="background-image:linear-gradient(#a855f706 1px,transparent 1px),linear-gradient(90deg,#a855f706 1px,transparent 1px);background-size:40px 40px;position:absolute;inset:0;"></div>
+  <div style="pointer-events:none;background:radial-gradient(70% 60%,#a855f70f,transparent 70%);position:absolute;inset:0;"></div>
+  <div style="position:relative;z-index:2;text-align:center;padding:96px 64px;">
+      <div style="margin-bottom:40px;"><span class="sect-pill-dim">THE VOID SPEAKS</span></div>
+      <h2 class="statement-glow" style="font-family:var(--font-bebas);font-size:clamp(3.5rem, 9vw, 8rem);line-height:0.9;margin-bottom:24px;letter-spacing:0.5px;background:linear-gradient(180deg, #f0ecf8, #a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+          YOUR WINDOWS.<br>
+          <span style="background:linear-gradient(135deg, #ff2d78 0%, #c026d3 50%, #a855f7 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">YOUR RULES.</span>
+      </h2>
+      <p style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,0.38);max-width:520px;margin:0 auto 40px;line-height:1.9;">
+          Most optimizers are closed, surveilled, or locked behind paywalls.<br>
+          VOIDTUNE gives you back control — completely, permanently, for free.
+      </p>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;">
+          <span class="tag tag-white">100% OPEN SOURCE</span>
+          <span class="tag tag-white">GPL V3</span>
+          <span class="tag tag-white">ZERO TELEMETRY</span>
+          <span class="tag tag-white">REVERSIBLE</span>
+          <span class="tag tag-white">FREE FOREVER</span>
+      </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- RESULTS SECTION -->
+<section id="results" style="background:var(--bg2);position:relative;overflow:hidden;padding:96px clamp(20px,10%,160px);">
+  <div style="pointer-events:none;background:radial-gradient(55% 60% at 80% 30%,#ff2d7812,transparent 70%),radial-gradient(35% 50% at 20% 80%,#a855f70f,transparent 65%);position:absolute;inset:0;"></div>
+  <div style="position:relative;z-index:2;">
+      <div style="margin-bottom:20px;"><span class="sect-pill">REAL RESULTS</span></div>
+      <h2 style="font-family:var(--font-bebas);font-size:clamp(4rem, 10vw, 8rem);line-height:0.9;margin-bottom:12px;background:linear-gradient(180deg, #f0ecf8, #a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+        <h2 style="font-family:var(--font-bebas);font-size:clamp(4rem, 10vw, 8rem);line-height:0.9;margin-bottom:12px;color:#f0ecf8;">
+          BEFORE <span class="outline-pink">&</span> <span class="outline-violet">AFTER</span>
+      </h2>
+      </h2>
+      <p style="font-family:var(--font-mono);font-size:11px;color:var(--muted);max-width:520px;line-height:1.7;margin-bottom:48px;">
+          Measured on AMD Ryzen 5 7600X + RTX 2080 Super / Windows 11. Results vary by hardware.
+      </p>
+      
+      <div style="display:grid;grid-template-columns:1fr 56px 1fr;border:1px solid var(--border);overflow:hidden;">
+          <!-- BEFORE -->
+          <div style="background:rgba(255,77,109,0.04);border-right:1px solid var(--border);padding:32px;">
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:3px;color:var(--red);margin-bottom:32px;text-transform:uppercase;">BEFORE — STOCK WINDOWS</div>
+              <div style="margin-bottom:28px;">
+                  <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;">BACKGROUND CPU LOAD</div>
+                  <div style="font-family:var(--font-bebas);font-size:2.4rem;color:var(--red);">~18%</div>
+              </div>
+              <div style="margin-bottom:28px;">
+                  <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;">INPUT LATENCY</div>
+                  <div style="font-family:var(--font-bebas);font-size:2.4rem;color:var(--red);">~8ms</div>
+              </div>
+              <div style="margin-bottom:28px;">
+                  <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;">TELEMETRY SERVICES</div>
+                  <div style="font-family:var(--font-bebas);font-size:2.4rem;color:var(--red);">Active</div>
+              </div>
+              <div>
+                  <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;">JUNK BACKGROUND SERVICES</div>
+                  <div style="font-family:var(--font-bebas);font-size:2.4rem;color:var(--red);">13+</div>
+              </div>
+          </div>
+          
+          <!-- VS -->
+          <div style="background:rgba(255,45,120,0.04);display:flex;align-items:center;justify-content:center;border-left:1px solid var(--border);">
+              <div style="width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,45,120,0.3);display:flex;align-items:center;justify-content:center;">
+                  <span style="font-family:var(--font-mono);font-size:9px;color:var(--pink);">VS</span>
+              </div>
+          </div>
+          
+          <!-- AFTER -->
+          <div style="background:rgba(255,45,120,0.03);border-left:1px solid var(--border);padding:32px;">
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:3px;color:var(--pink);margin-bottom:32px;text-transform:uppercase;">AFTER — VOIDTUNE OPTIMIZED</div>
+              <div style="margin-bottom:28px;">
+                  <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;">BACKGROUND CPU LOAD</div>
+                  <div style="display:flex;align-items:center;gap:12px;">
+                      <span style="font-family:var(--font-bebas);font-size:2.4rem;color:var(--pink);">~6%</span>
+                      <span class="tag tag-pink">↓ 67% reduction</span>
+                  </div>
+              </div>
+              <div style="margin-bottom:28px;">
+                  <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;">INPUT LATENCY</div>
+                  <div style="display:flex;align-items:center;gap:12px;">
+                      <span style="font-family:var(--font-bebas);font-size:2.4rem;color:var(--pink);">~3ms</span>
+                      <span class="tag tag-pink">↓ ~60% lower</span>
+                  </div>
+              </div>
+              <div style="margin-bottom:28px;">
+                  <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;">TELEMETRY SERVICES</div>
+                  <div style="display:flex;align-items:center;gap:12px;">
+                      <span style="font-family:var(--font-bebas);font-size:2.4rem;color:var(--violet);">Disabled</span>
+                      <span class="tag tag-violet">✓ Fully killed</span>
+                  </div>
+              </div>
+              <div>
+                  <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:6px;">JUNK BACKGROUND SERVICES</div>
+                  <div style="display:flex;align-items:center;gap:12px;">
+                      <span style="font-family:var(--font-bebas);font-size:2.4rem;color:var(--violet);">0</span>
+                      <span class="tag tag-violet">✓ Gaming Mode</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- HOW IT WORKS SECTION -->
+<section style="background:var(--bg3);position:relative;overflow:hidden;padding:96px clamp(20px,10%,160px);">
+  <div style="background-image:linear-gradient(#a855f706 1px,transparent 1px),linear-gradient(90deg,#a855f706 1px,transparent 1px);background-size:40px 40px;position:absolute;inset:0;"></div>
+  <div style="pointer-events:none;background:radial-gradient(60% 55% at 15% 40%,#a855f714,transparent 70%),radial-gradient(40% 45% at 85% 70%,#ff2d780d,transparent 60%);position:absolute;inset:0;"></div>
+  <div style="position:relative;z-index:2;">
+      <div style="margin-bottom:20px;"><span class="sect-pill">QUICK START</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:56px;">
+          <h2 style="font-family:var(--font-bebas);font-size:clamp(3.5rem, 9vw, 6.5rem);line-height:0.9;background:linear-gradient(180deg, #f0ecf8, #a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+              HOW IT WORKS
+          </h2>
+          <p style="font-family:var(--font-mono);font-size:12px;color:var(--muted);line-height:1.8;padding-top:12px;">
+              Up and running in under a minute. No installer — extract and launch into the void.
+          </p>
+      </div>
+      
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--border);">
+          <!-- Step 1 -->
+          <div style="padding:28px;border-right:1px solid var(--border);">
+              <div style="width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,45,120,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+                  <span style="font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,0.4);">01</span>
+              </div>
+              <div style="font-family:var(--font-mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;">STEP_01</div>
+              <div style="font-family:var(--font-body);font-weight:600;font-size:15px;margin-bottom:10px;">Download & Extract</div>
+              <p style="font-family:var(--font-mono);font-size:10px;color:var(--muted);line-height:1.7;">Download the zip, extract anywhere. Keep core, modules, ui together.</p>
+          </div>
+          <!-- Step 2 -->
+          <div style="padding:28px;border-right:1px solid var(--border);">
+              <div style="width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,45,120,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+                  <span style="font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,0.4);">02</span>
+              </div>
+              <div style="font-family:var(--font-mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;">STEP_02</div>
+              <div style="font-family:var(--font-body);font-weight:600;font-size:15px;margin-bottom:10px;">Launch as Admin</div>
+              <p style="font-family:var(--font-mono);font-size:10px;color:var(--muted);line-height:1.7;">Right-click LAUNCH_VOIDTUNE.bat → Run as Administrator. Auto-elevates.</p>
+          </div>
+          <!-- Step 3 -->
+          <div style="padding:28px;border-right:1px solid var(--border);">
+              <div style="width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,45,120,0.2);display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+                  <span style="font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,0.4);">03</span>
+              </div>
+              <div style="font-family:var(--font-mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;">STEP_03</div>
+              <div style="font-family:var(--font-body);font-weight:600;font-size:15px;margin-bottom:10px;">Create a Backup</div>
+              <p style="font-family:var(--font-mono);font-size:10px;color:var(--muted);line-height:1.7;">Go to Backup/Restore first. One click creates a full registry checkpoint.</p>
+          </div>
+          <!-- Step 4 -->
+          <div style="padding:28px;background:rgba(255,45,120,0.04);">
+              <div style="width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,45,120,0.5);display:flex;align-items:center;justify-content:center;margin-bottom:20px;">
+                  <span style="font-family:var(--font-mono);font-size:9px;color:var(--pink);">04</span>
+              </div>
+              <div style="font-family:var(--font-mono);font-size:8px;letter-spacing:2px;color:var(--muted);margin-bottom:6px;text-transform:uppercase;">STEP_04</div>
+              <div style="font-family:var(--font-body);font-weight:600;font-size:15px;margin-bottom:10px;color:var(--pink);">Select & Apply</div>
+              <p style="font-family:var(--font-mono);font-size:10px;color:var(--muted);line-height:1.7;">Pick SAFE tweaks for daily use or EXTREME for max performance. Apply All.</p>
+          </div>
+      </div>
+  </div>
+</section>
+<!-- FEATURES SECTION -->
+<section id="features" style="background:var(--bg);padding:96px clamp(20px,10%,160px);position:relative;z-index:2;">
+  <div style="margin-bottom:20px;"><span class="sect-pill">CAPABILITIES</span></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:48px;">
+      <h2 style="font-family:var(--font-bebas);font-size:clamp(3.5rem, 9vw, 6.5rem);line-height:0.9;background:linear-gradient(180deg, #f0ecf8, #a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+          WHAT IT DOES
+      </h2>
+      <p style="font-family:var(--font-mono);font-size:12px;color:var(--muted);line-height:1.8;padding-top:12px;">
+          Every tweak is categorized, badged <span style="color:var(--pink);">SAFE</span> or 
+          <span style="color:var(--red);">EXTREME</span>, fully reversible, and saved between sessions.
+      </p>
+  </div>
+  
+  <div style="border:1px solid var(--border);overflow:hidden;overflow-x:auto;">
+      <table>
+          <thead>
+              <tr>
+                  <th>IDX</th><th>TAG</th><th>MODULE</th><th></th><th>DESCRIPTION</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td style="color:var(--muted);">01</td>
+                  <td><span class="tag tag-blue">CPU</span></td>
+                  <td style="font-weight:600;">CPU & Power</td>
+                  <td></td>
+                  <td style="color:var(--muted);line-height:1.55;">High-performance power plans, timer resolution, core parking, turbo boost, Win32 priority. AMD + Intel arch-specific.</td>
+              </tr>
+              <tr>
+                  <td style="color:var(--muted);">02</td>
+                  <td><span class="tag tag-pink">GPU</span></td>
+                  <td style="font-weight:600;">GPU Tweaks</td>
+                  <td></td>
+                  <td style="color:var(--muted);line-height:1.55;">Hardware GPU scheduling, priority boost, TDR fix, DirectFlip, MPO stutter removal. NVIDIA + AMD vendor sets.</td>
+              </tr>
+              <tr>
+                  <td style="color:var(--muted);">03</td>
+                  <td><span class="tag tag-cyan">NET</span></td>
+                  <td style="font-weight:600;">Network</td>
+                  <td></td>
+                  <td style="color:var(--muted);line-height:1.55;">Nagle's algorithm disable, TCP Fast Open, RSS multi-core scaling, DNS flush, QoS removal.</td>
+              </tr>
+              <tr>
+                  <td style="color:var(--muted);">04</td>
+                  <td><span class="tag tag-red">DEB</span></td>
+                  <td style="font-weight:600;">Debloat</td>
+                  <td></td>
+                  <td style="color:var(--muted);line-height:1.55;">Telemetry kill, ad block, Cortana removal, Game Bar disable, animation kill, raw mouse input enforcement.</td>
+              </tr>
+              <tr>
+                  <td style="color:var(--muted);">05</td>
+                  <td><span class="tag tag-yellow">SVC</span></td>
+                  <td style="font-weight:600;">Services</td>
+                  <td><span class="tag tag-pink">v0.8</span></td>
+                  <td style="color:var(--muted);line-height:1.55;">18 services with live status. Gaming Mode disables 13 non-essential services in one click.</td>
+              </tr>
+              <tr>
+                  <td style="color:var(--muted);">06</td>
+                  <td><span class="tag tag-violet">PRI</span></td>
+                  <td style="font-weight:600;">Privacy</td>
+                  <td></td>
+                  <td style="color:var(--muted);line-height:1.55;">Block camera, mic, location. Disable timeline, Cortana, forced updates, cloud sync, activity history.</td>
+              </tr>
+              <tr>
+                  <td style="color:var(--muted);">07</td>
+                  <td><span class="tag tag-pink">APP</span></td>
+                  <td style="font-weight:600;">App Installer</td>
+                  <td><span class="tag tag-pink">v0.8</span></td>
+                  <td style="color:var(--muted);line-height:1.55;">50+ apps across 8 categories via winget with automatic Chocolatey fallback. Live search bar included.</td>
+              </tr>
+              <tr>
+                  <td style="color:var(--muted);">08</td>
+                  <td><span class="tag tag-red">BCK</span></td>
+                  <td style="font-weight:600;">Backup & Restore</td>
+                  <td></td>
+                  <td style="color:var(--muted);line-height:1.55;">Registry backup before every apply. Restore from any checkpoint, create manual snapshots.</td>
+              </tr>
+              <tr>
+                  <td style="color:var(--muted);">09</td>
+                  <td><span class="tag tag-magenta">PER</span></td>
+                  <td style="font-weight:600;">Personalization</td>
+                  <td></td>
+                  <td style="color:var(--muted);line-height:1.55;">Aero, accent color, taskbar control, icon scaling, start menu layout, dark mode enforcement.</td>
+              </tr>
+              <tr>
+                  <td style="color:var(--muted);">10</td>
+                  <td><span class="tag tag-blue">DGN</span></td>
+                  <td style="font-weight:600;">Diagnostics</td>
+                  <td></td>
+                  <td style="color:var(--muted);line-height:1.55;">Real-time CPU, RAM, disk, GPU health. Driver info page, stability benchmark, event log view.</td>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- COMPARISON SECTION -->
+<section id="compare" style="background:var(--bg2);position:relative;overflow:hidden;padding:96px clamp(20px,10%,160px);">
+  <div style="pointer-events:none;background:radial-gradient(60% 55% at 15% 40%,#a855f714,transparent 70%),radial-gradient(40% 45% at 85% 70%,#ff2d780d,transparent 60%);position:absolute;inset:0;"></div>
+  <div style="position:relative;z-index:2;">
+      <div style="margin-bottom:20px;"><span class="sect-pill">COMPARISON</span></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:48px;">
+          <h2 style="font-family:var(--font-bebas);font-size:clamp(3rem, 8vw, 6rem);line-height:0.9;background:linear-gradient(180deg, #f0ecf8, #a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">
+              VOIDTUNE VS THE REST
+          </h2>
+          <div style="padding-top:8px;border-left:2px solid rgba(255,45,120,0.25);padding-left:20px;">
+              <p style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.5);line-height:1.8;">
+                  Most optimizers are closed-source, paid, or hide what they actually do. VOIDTUNE is different.
+              </p>
+          </div>
+      </div>
+      
+      <div style="border:1px solid var(--border);overflow:hidden;overflow-x:auto;">
+          <table>
+              <thead>
+                  <tr>
+                      <th>FEATURE</th>
+                      <th style="background:rgba(255,45,120,0.04);"><span class="tag tag-pink">● VOIDTUNE</span></th>
+                      <th>PAID TOOL</th>
+                      <th>FREE TOOL</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td><span style="color:var(--muted);margin-right:12px;">01</span> 100% Free</td>
+                      <td style="background:rgba(255,45,120,0.025);"><span class="tag tag-pink">YES</span></td>
+                      <td><span class="tag tag-red">FREE + PAID TIER</span></td>
+                      <td><span class="tag tag-pink">YES</span></td>
+                  </tr>
+                  <tr>
+                      <td><span style="color:var(--muted);margin-right:12px;">02</span> Open Source</td>
+                      <td style="background:rgba(255,45,120,0.025);"><span class="tag tag-pink">YES — GPL v3</span></td>
+                      <td><span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.18);">NO</span></td>
+                      <td><span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.18);">NO</span></td>
+                  </tr>
+                  <tr>
+                      <td><span style="color:var(--muted);margin-right:12px;">03</span> Zero Telemetry</td>
+                      <td style="background:rgba(255,45,120,0.025);"><span class="tag tag-pink">GUARANTEED</span></td>
+                      <td><span class="tag tag-yellow">UNKNOWN</span></td>
+                      <td><span class="tag tag-yellow">UNKNOWN</span></td>
+                  </tr>
+                  <tr>
+                      <td><span style="color:var(--muted);margin-right:12px;">04</span> Individual Tweak Revert</td>
+                      <td style="background:rgba(255,45,120,0.025);"><span class="tag tag-pink">EVERY TWEAK</span></td>
+                      <td><span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.5);">PARTIAL</span></td>
+                      <td><span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.5);">PARTIAL</span></td>
+                  </tr>
+                  <tr>
+                      <td><span style="color:var(--muted);margin-right:12px;">05</span> Tweak State Persistence</td>
+                      <td style="background:rgba(255,45,120,0.025);"><span class="tag tag-pink">YES — SAVED</span></td>
+                      <td><span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.18);">NO</span></td>
+                      <td><span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.18);">NO</span></td>
+                  </tr>
+                  <tr>
+                      <td><span style="color:var(--muted);margin-right:12px;">06</span> Hardware-Aware Tweaks</td>
+                      <td style="background:rgba(255,45,120,0.025);"><span class="tag tag-pink">AMD / INTEL / NVIDIA</span></td>
+                      <td><span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.18);">NO</span></td>
+                      <td><span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.18);">NO</span></td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      
+      <!-- Comparison summary -->
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--border);border-top:none;overflow:hidden;">
+          <div style="padding:18px 20px;border-right:1px solid var(--border);background:rgba(255,45,120,0.02);">
+              <div style="font-family:var(--font-mono);font-size:8px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">FEATURES</div>
+              <div style="font-family:var(--font-bebas);font-size:1.4rem;color:var(--pink);">10</div>
+          </div>
+          <div style="padding:18px 20px;border-right:1px solid var(--border);background:rgba(255,45,120,0.02);">
+              <div style="font-family:var(--font-mono);font-size:8px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">VOIDTUNE WINS</div>
+              <div style="font-family:var(--font-bebas);font-size:1.4rem;color:var(--pink);">10/10</div>
+          </div>
+          <div style="padding:18px 20px;border-right:1px solid var(--border);background:rgba(255,45,120,0.02);">
+              <div style="font-family:var(--font-mono);font-size:8px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">OPEN SOURCE</div>
+              <div style="font-family:var(--font-bebas);font-size:1.4rem;color:var(--pink);">GPL v3</div>
+          </div>
+          <div style="padding:18px 20px;border-right:1px solid var(--border);background:rgba(255,45,120,0.02);">
+              <div style="font-family:var(--font-mono);font-size:8px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">TELEMETRY</div>
+              <div style="font-family:var(--font-bebas);font-size:1.4rem;color:var(--pink);">ZERO</div>
+          </div>
+          <div style="padding:18px 20px;background:rgba(255,45,120,0.02);">
+              <div style="font-family:var(--font-mono);font-size:8px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">PRICE</div>
+              <div style="font-family:var(--font-bebas);font-size:1.4rem;color:var(--pink);">FREE</div>
+          </div>
+      </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- DOWNLOAD SECTION -->
+<section id="download" style="background:var(--bg3);border-top:1px solid var(--border);padding:0;">
+  <div style="border-bottom:1px solid rgba(255,45,120,0.1);padding:9px clamp(20px,10%,160px);display:flex;justify-content:space-between;align-items:center;">
+      <span class="sect-pill" style="border-radius:0;background:transparent;">LATEST RELEASE</span>
+      <span style="font-family:var(--font-mono);font-size:10px;color:var(--muted);">v0.8 STABLE</span>
+  </div>
+  
+  <div style="display:grid;grid-template-columns:1fr 1fr;max-width:1240px;margin:0 auto;padding:64px;">
+      <!-- Left: Quick Start -->
+      <div style="border-right:1px solid var(--border);padding-right:64px;">
+          <span style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;color:var(--pink);display:flex;align-items:center;gap:8px;margin-bottom:24px;text-transform:uppercase;">
+              <span class="blink-dot" style="width:6px;height:6px;border-radius:50%;background:var(--pink);display:inline-block;"></span>
+              QUICK START
+          </span>
+          <div style="display:flex;gap:16px;margin-bottom:18px;align-items:flex-start;">
+              <span style="font-family:var(--font-mono);font-size:11px;color:var(--pink);flex-shrink:0;">1</span>
+              <span style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.5);line-height:1.7;">Extract zip → keep folder structure intact (core, modules, ui must exist)</span>
+          </div>
+          <div style="display:flex;gap:16px;margin-bottom:18px;align-items:flex-start;">
+              <span style="font-family:var(--font-mono);font-size:11px;color:var(--pink);flex-shrink:0;">2</span>
+              <span style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.5);line-height:1.7;">Right-click LAUNCH_VOIDTUNE.bat → Run as Administrator</span>
+          </div>
+          <div style="display:flex;gap:16px;margin-bottom:18px;align-items:flex-start;">
+              <span style="font-family:var(--font-mono);font-size:11px;color:var(--pink);flex-shrink:0;">3</span>
+              <span style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.5);line-height:1.7;">Accept disclaimer → VOIDTUNE starts</span>
+          </div>
+          <div style="display:flex;gap:16px;margin-bottom:18px;align-items:flex-start;">
+              <span style="font-family:var(--font-mono);font-size:11px;color:var(--pink);flex-shrink:0;">4</span>
+              <span style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.5);line-height:1.7;">Create a backup first (Backup/Restore tab) → select tweaks → Apply All</span>
+          </div>
+          
+          <!-- Terminal block -->
+          <div style="margin-top:28px;background:#020204;border:1px solid rgba(255,45,120,0.15);padding:18px 22px;font-family:var(--font-mono);font-size:11px;line-height:2;">
+              <div style="font-family:var(--font-mono);font-size:8px;letter-spacing:3px;color:rgba(255,255,255,0.15);margin-bottom:10px;text-transform:uppercase;">// TERMINAL OUTPUT</div>
+              <div style="color:var(--pink);">> LAUNCH_VOIDTUNE.exe</div>
+              <div style="color:rgba(255,255,255,0.4);">  [INFO] Entering the void... WIN11 22H2 ✓</div>
+              <div style="color:rgba(255,255,255,0.4);">  [INFO] Loading modules: CPU GPU NET DEB SVC PRI APP BCK</div>
+              <div style="color:var(--violet);">  [OK]   All 10 modules loaded. Admin confirmed.</div>
+              <div style="color:var(--pink);">> BACKUP → 2024-01-15_void_checkpoint.reg</div>
+              <div style="color:rgba(255,255,255,0.22);">  [SAFE]  Applying 32 void tweaks...</div>
+              <div style="color:var(--violet);">  [DONE] VOIDTUNE complete. 0 errors. System optimised.</div>
+              <div style="color:var(--pink);display:flex;align-items:center;gap:5px;">
+                  <span>></span>
+                  <span style="background:var(--pink);width:8px;height:14px;display:inline-block;animation:blink-cursor 1s step-end infinite;"></span>
+              </div>
+              <style>@keyframes blink-cursor{0%,100%{opacity:1}50%{opacity:0}}</style>
+          </div>
+      </div>
+      
+      <!-- Right: Download info -->
+      <div style="padding-left:64px;">
+          <h2 style="font-family:var(--font-bebas);font-size:2.4rem;margin-bottom:5px;background:linear-gradient(180deg, #f0ecf8, #a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">VOIDTUNE V0.8</h2>
+          <p style="font-family:var(--font-mono);font-size:11px;color:var(--muted);margin-bottom:24px;letter-spacing:2px;">— POWERSHELL WPF GUI</p>
+          
+          <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:28px;">
+              <span class="tag tag-white">WPF GUI</span>
+              <span class="tag tag-white">ADMIN ELEVATE</span>
+              <span class="tag tag-white">WIN10 / WIN11</span>
+              <span class="tag tag-white">GPL v3</span>
+              <span class="tag tag-white">PORTABLE</span>
+          </div>
+          
+          <div style="background:rgba(168,85,247,0.06);border:1px solid rgba(168,85,247,0.2);padding:14px 18px;margin-bottom:32px;">
+              <span style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.55);line-height:1.6;">
+                  <strong style="color:var(--violet);">Requires:</strong> Windows 10/11 · PowerShell 5.1+ · Run LAUNCH_VOIDTUNE.bat
+              </span>
+          </div>
+          
+          <div style="display:flex;align-items:center;gap:24px;margin-bottom:40px;">
+              <a href="VOIDTUNE_0.8V.zip" download class="btn-primary">↓ DOWNLOAD NOW</a>   
+              <span style="font-family:var(--font-mono);font-size:10px;color:var(--muted);">Open source · GPL v3</span>
+          </div>
+          
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border);padding-top:20px;gap:20px;">
+              <div>
+                  <div style="font-family:var(--font-mono);font-size:8px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">LICENSE</div>
+                  <div style="font-family:var(--font-body);font-weight:600;font-size:14px;">GPL v3</div>
+              </div>
+              <div>
+                  <div style="font-family:var(--font-mono);font-size:8px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">PLATFORM</div>
+                  <div style="font-family:var(--font-body);font-weight:600;font-size:14px;">WIN10/11</div>
+              </div>
+              <div>
+                  <div style="font-family:var(--font-mono);font-size:8px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:5px;">TYPE</div>
+                  <div style="font-family:var(--font-body);font-weight:600;font-size:14px;">PORTABLE</div>
+              </div>
+          </div>
+          
+          <div style="border-top:1px solid var(--border);margin-top:20px;padding-top:14px;display:flex;align-items:center;gap:8px;">
+              <span class="blink-dot" style="width:6px;height:6px;border-radius:50%;background:var(--pink);display:inline-block;"></span>
+              <span class="signal-flicker" style="font-family:var(--font-mono);font-size:10px;color:var(--pink);letter-spacing:2px;text-transform:uppercase;">STABLE · 100% FREE · NO PREMIUM · NO ADS</span>
+          </div>
+      </div>
+  </div>
+</section>
+<div class="glow-line"></div>
+
+<!-- FAQ SECTION -->
+<section id="faq" style="background:var(--bg);padding:96px clamp(20px,10%,160px);position:relative;z-index:2;">
+    <div style="margin-bottom:20px;"><span class="sect-pill">QUESTIONS</span></div>
+    <div style="display:flex;align-items:flex-end;gap:32px;margin-bottom:8px;">
+        <h2 style="font-family:var(--font-bebas);font-size:clamp(5rem, 12vw, 9rem);line-height:0.9;color:rgba(255,255,255,0.9);">FAQ</h2>
+    </div>
+    <div style="border-top:1px solid var(--border);"></div>
+    
+    <div class="faq-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:0 64px;">
+        <!-- FAQ Item 1 -->
+        <div class="faq-item" style="border-bottom:1px solid var(--border2);">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span style="display:flex;gap:14px;align-items:center;">
+                    <span style="font-family:var(--font-mono);font-size:9px;color:var(--muted);flex-shrink:0;">01</span>
+                    Is VOIDTUNE safe?
+                </span>
+                <span class="faq-toggle" style="font-family:var(--font-mono);font-size:14px;color:var(--muted);">[+]</span>
+            </button>
+            <div class="faq-answer">Yes. Fully open source GPL v3. Every change is reversible. Audit every line on GitHub before running.</div>
+        </div>
+        
+        <!-- FAQ Item 2 -->
+        <div class="faq-item" style="border-bottom:1px solid var(--border2);">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span style="display:flex;gap:14px;align-items:center;">
+                    <span style="font-family:var(--font-mono);font-size:9px;color:var(--muted);flex-shrink:0;">02</span>
+                    Do I need a fresh Windows install?
+                </span>
+                <span class="faq-toggle" style="font-family:var(--font-mono);font-size:14px;color:var(--muted);">[+]</span>
+            </button>
+            <div class="faq-answer">No. VOIDTUNE works on any Windows 10/11 installation. It doesn't reinstall or reset Windows.</div>
+        </div>
+        
+        <!-- FAQ Item 3 -->
+        <div class="faq-item" style="border-bottom:1px solid var(--border2);">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span style="display:flex;gap:14px;align-items:center;">
+                    <span style="font-family:var(--font-mono);font-size:9px;color:var(--muted);flex-shrink:0;">03</span>
+                    Why does it need Administrator?
+                </span>
+                <span class="faq-toggle" style="font-family:var(--font-mono);font-size:14px;color:var(--muted);">[+]</span>
+            </button>
+            <div class="faq-answer">Registry edits and service control require elevated privileges. It auto-elevates via UAC prompt.</div>
+        </div>
+        
+        <!-- FAQ Item 4 -->
+        <div class="faq-item" style="border-bottom:1px solid var(--border2);">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span style="display:flex;gap:14px;align-items:center;">
+                    <span style="font-family:var(--font-mono);font-size:9px;color:var(--muted);flex-shrink:0;">04</span>
+                    Can I undo everything?
+                </span>
+                <span class="faq-toggle" style="font-family:var(--font-mono);font-size:14px;color:var(--muted);">[+]</span>
+            </button>
+            <div class="faq-answer">Yes. Backup/Restore tab creates full registry checkpoints before every apply. One-click restore.</div>
+        </div>
+        
+        <!-- FAQ Item 5 -->
+        <div class="faq-item" style="border-bottom:1px solid var(--border2);">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span style="display:flex;gap:14px;align-items:center;">
+                    <span style="font-family:var(--font-mono);font-size:9px;color:var(--muted);flex-shrink:0;">05</span>
+                    Is it really free? No premium?
+                </span>
+                <span class="faq-toggle" style="font-family:var(--font-mono);font-size:14px;color:var(--muted);">[+]</span>
+            </button>
+            <div class="faq-answer">100% free. No subscriptions, no paid tiers, no nag screens. GPL v3 — forever.</div>
+        </div>
+        
+        <!-- FAQ Item 6 -->
+        <div class="faq-item" style="border-bottom:1px solid var(--border2);">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span style="display:flex;gap:14px;align-items:center;">
+                    <span style="font-family:var(--font-mono);font-size:9px;color:var(--muted);flex-shrink:0;">06</span>
+                    SAFE vs EXTREME tweaks — what's the difference?
+                </span>
+                <span class="faq-toggle" style="font-family:var(--font-mono);font-size:14px;color:var(--muted);">[+]</span>
+            </button>
+            <div class="faq-answer">SAFE = daily use, no risk. EXTREME = max performance, some may affect stability on older hardware.</div>
+        </div>
+        
+        <!-- FAQ Item 7 -->
+        <div class="faq-item" style="border-bottom:1px solid var(--border2);">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span style="display:flex;gap:14px;align-items:center;">
+                    <span style="font-family:var(--font-mono);font-size:9px;color:var(--muted);flex-shrink:0;">07</span>
+                    Will it break my games or anticheat?
+                </span>
+                <span class="faq-toggle" style="font-family:var(--font-mono);font-size:14px;color:var(--muted);">[+]</span>
+            </button>
+            <div class="faq-answer">SAFE tweaks won't. EXTREME tweaks are labeled. Read each description before applying.</div>
+        </div>
+        
+        <!-- FAQ Item 8 -->
+        <div class="faq-item" style="border-bottom:1px solid var(--border2);">
+            <button class="faq-question" onclick="toggleFAQ(this)">
+                <span style="display:flex;gap:14px;align-items:center;">
+                    <span style="font-family:var(--font-mono);font-size:9px;color:var(--muted);flex-shrink:0;">08</span>
+                    Does VOIDTUNE send any data?
+                </span>
+                <span class="faq-toggle" style="font-family:var(--font-mono);font-size:14px;color:var(--muted);">[+]</span>
+            </button>
+            <div class="faq-answer">Zero. No analytics, no telemetry, no network calls. Verified — check the source code yourself.</div>
+        </div>
+    </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- MOBILE COMPANION SECTION -->
+<section id="mobile" style="background:var(--bg2);position:relative;overflow:hidden;padding:96px clamp(20px,10%,160px);">
+    <div style="pointer-events:none;background:radial-gradient(55% 60% at 80% 30%,#ff2d7812,transparent 70%),radial-gradient(35% 50% at 20% 80%,#a855f70f,transparent 65%);position:absolute;inset:0;"></div>
+    <div style="position:relative;z-index:2;display:grid;grid-template-columns:1fr auto;gap:64px;align-items:center;">
+        <!-- Left -->
+        <div>
+            <div style="margin-bottom:20px;"><span class="sect-pill-dim">PLANNED — POST C-REWRITE</span></div>
+            <h2 style="font-family:var(--font-bebas);font-size:clamp(3.5rem, 9vw, 7rem);line-height:0.9;margin-bottom:24px;">
+                MOBILE <span style="color:var(--violet);">COMPANION</span>
+            </h2>
+            <p style="font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,0.45);line-height:1.9;max-width:460px;margin-bottom:40px;">
+                Coming after the C Edition rewrite. Scan a QR code from the desktop app, open in any mobile browser — no app install needed. Monitor and control tweaks over local WiFi.
+            </p>
+            
+            <div style="display:flex;flex-direction:column;gap:18px;margin-bottom:40px;">
+                <div style="display:flex;gap:16px;align-items:flex-start;">
+                    <div style="width:28px;height:28px;border:1px solid rgba(255,45,120,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <span style="font-family:var(--font-mono);font-size:10px;color:var(--pink);">→</span>
+                    </div>
+                    <div>
+                        <div style="font-family:var(--font-body);font-weight:600;font-size:14px;margin-bottom:3px;">Instant Connect</div>
+                        <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);line-height:1.6;">QR code pairing from the desktop app. Any mobile browser, no install.</div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:16px;align-items:flex-start;">
+                    <div style="width:28px;height:28px;border:1px solid rgba(255,45,120,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <span style="font-family:var(--font-mono);font-size:10px;color:var(--pink);">→</span>
+                    </div>
+                    <div>
+                        <div style="font-family:var(--font-body);font-weight:600;font-size:14px;margin-bottom:3px;">Live Stats</div>
+                        <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);line-height:1.6;">Real-time CPU, RAM, GPU and disk usage streamed to your phone.</div>
+                    </div>
+                </div>
+                <div style="display:flex;gap:16px;align-items:flex-start;">
+                    <div style="width:28px;height:28px;border:1px solid rgba(255,45,120,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <span style="font-family:var(--font-mono);font-size:10px;color:var(--pink);">→</span>
+                    </div>
+                    <div>
+                        <div style="font-family:var(--font-body);font-weight:600;font-size:14px;margin-bottom:3px;">Remote Tweaks</div>
+                        <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);line-height:1.6;">Toggle tweaks remotely over WiFi and receive real-time notifications.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <span class="tag tag-yellow" style="font-size:10px;padding:6px 12px;">● POSTPONED — COMING AFTER C REWRITE</span>
+        </div>
+        
+        <!-- Right: Phone mockup -->
+        <div class="phone-mockup" style="background:rgba(7,5,15,0.97);border:1px solid rgba(168,85,247,0.18);border-radius:20px;padding:18px;width:195px;flex-shrink:0;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                <span style="font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.38);">9:41</span>
+                <span class="tag tag-pink" style="font-size:8px;">LIVE</span>
+            </div>
+            <div style="text-align:center;font-family:var(--font-mono);font-size:8px;letter-spacing:3px;color:var(--muted);margin-bottom:10px;">VOIDTUNE</div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;">
+                <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border2);padding:6px 8px;border-radius:3px;">
+                    <div style="font-family:var(--font-mono);font-size:8px;color:var(--muted);margin-bottom:2px;">CPU</div>
+                    <div style="font-family:var(--font-bebas);font-size:18px;color:var(--pink);">31%</div>
+                </div>
+                <div style="background:rgba(255,255,255,0.03);border:1px solid var(--border2);padding:6px 8px;border-radius:3px;">
+                    <div style="font-family:var(--font-mono);font-size:8px;color:var(--muted);margin-bottom:2px;">SCORE</div>
+                    <div style="font-family:var(--font-bebas);font-size:18px;color:var(--text);">85</div>
+                </div>
+            </div>
+            <div style="background:rgba(255,45,120,0.07);border:1px solid rgba(255,45,120,0.2);padding:6px 8px;border-radius:3px;text-align:center;">
+                <span style="font-family:var(--font-mono);font-size:8px;color:var(--pink);">CONNECTED · WIFI · LOCAL</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- ROADMAP SECTION -->
+<section id="roadmap" style="background:var(--bg2);position:relative;overflow:hidden;padding:96px clamp(20px,10%,160px);">
+    <div style="pointer-events:none;background:radial-gradient(55% 60% at 80% 30%,#ff2d7812,transparent 70%),radial-gradient(35% 50% at 20% 80%,#a855f70f,transparent 65%);position:absolute;inset:0;"></div>
+    <div style="position:relative;z-index:2;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;margin-bottom:40px;">
+            <h2 style="font-family:var(--font-bebas);font-size:clamp(5rem, 14vw, 10rem);line-height:0.88;background:linear-gradient(180deg, #f0ecf8, #a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;">ROAD MAP</h2>
+            <div style="padding-bottom:8px;">
+                <p style="font-family:var(--font-mono);font-size:11px;color:var(--muted);line-height:1.8;margin-bottom:20px;">Actively developed. No deadlines — done when it's good.</p>
+                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                    <span class="tag tag-pink">CURRENT</span>
+                    <span class="tag tag-blue">IN DEV</span>
+                    <span class="tag tag-white">PLANNED</span>
+                    <span class="tag tag-violet">MILESTONE</span>
+                    <span class="tag tag-yellow">FUTURE</span>
+                    <span class="tag tag-magenta">VOID</span>
+                </div>
+            </div>
+        </div>
+        
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);overflow:hidden;">
+            <!-- v0.6 -->
+            <div style="background:var(--bg2);padding:24px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                    <span style="font-family:var(--font-bebas);font-size:24px;color:rgba(255,255,255,0.25);">v0.6</span>
+                    <span class="tag tag-white" style="font-size:8px;">DONE</span>
+                </div>
+                <div style="font-family:var(--font-body);font-weight:600;font-size:13px;margin-bottom:8px;color:rgba(255,255,255,0.48);">MODULAR ARCHITECTURE</div>
+                <p style="font-family:var(--font-mono);font-size:10px;color:var(--muted);line-height:1.65;">File split, personalization, Aero, accent, tweak persistence, UAC elevation, 50+ apps, process monitor.</p>
+            </div>
+            <!-- v0.7 -->
+            <div style="background:var(--bg2);padding:24px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                    <span style="font-family:var(--font-bebas);font-size:24px;color:rgba(255,255,255,0.25);">v0.7</span>
+                    <span class="tag tag-white" style="font-size:8px;">DONE</span>
+                </div>
+                <div style="font-family:var(--font-body);font-weight:600;font-size:13px;margin-bottom:8px;color:rgba(255,255,255,0.48);">DRIVER INFO & GPU HEALTH</div>
+                <p style="font-family:var(--font-mono);font-size:10px;color:var(--muted);line-height:1.65;">Driver version page, GPU health check tab, stability benchmark, C launcher .exe replacing .bat.</p>
+            </div>
+            <!-- v0.8 -->
+            <div style="background:var(--bg2);padding:24px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                    <span style="font-family:var(--font-bebas);font-size:24px;color:var(--pink);">v0.8</span>
+                    <span class="tag tag-pink" style="font-size:8px;">CURRENT</span>
+                </div>
+                <div style="font-family:var(--font-body);font-weight:600;font-size:13px;margin-bottom:8px;color:white;">BUG FIXES & POLISH</div>
+                <p style="font-family:var(--font-mono);font-size:10px;color:var(--muted);line-height:1.65;">Stability improvements and bug fixes across all modules. Mobile Companion postponed — after C rewrite.</p>
+            </div>
+            <!-- v0.9 -->
+            <div style="background:var(--bg2);padding:24px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                    <span style="font-family:var(--font-bebas);font-size:24px;color:rgba(255,255,255,0.25);">v0.9</span>
+                    <span class="tag tag-blue" style="font-size:8px;">IN DEV</span>
+                </div>
+                <div style="font-family:var(--font-body);font-weight:600;font-size:13px;margin-bottom:8px;color:rgba(255,255,255,0.48);">DEV & NETWORK TOOLS</div>
+                <p style="font-family:var(--font-mono);font-size:10px;color:var(--muted);line-height:1.65;">Local network monitor, built-in compiler for C, dev environment setup wizard.</p>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="glow-line"></div>
+
+
+<!-- TICKER (again before footer) -->
+<div class="hero-ticker" style="background:var(--bg);border-top:1px solid rgba(255,45,120,0.08);">
+    <div class="hero-ticker-track">
+        <div class="hero-ticker-inner">
+            <span class="ticker-item">NO TELEMETRY</span><span class="ticker-dot">◆</span>
+            <span class="ticker-item">OPEN SOURCE</span><span class="ticker-dot">◆</span>
+            <span class="ticker-item">GPL V3</span><span class="ticker-dot">◆</span>
+            <span class="ticker-item">FREE FOREVER</span><span class="ticker-dot">◆</span>
+            <span class="ticker-item">WIN10 / WIN11</span><span class="ticker-dot">◆</span>
+            <span class="ticker-item">PORTABLE</span><span class="ticker-dot">◆</span>
+            <span class="ticker-item">AMD + INTEL + NVIDIA</span><span class="ticker-dot">◆</span>
+            <span class="ticker-item">ZERO ADS</span>
+        </div>
+        <div class="hero-ticker-inner" aria-hidden="true">
+            <span class="ticker-item">NO TELEMETRY</span><span class="ticker-dot">◆</span>
+            <span class="ticker-item">OPEN SOURCE</span><span class="ticker-dot">◆</span>
+            <span class="ticker-item">GPL V3</span><span class="ticker-dot">◆</span>
+            <span class="ticker-item">FREE FOREVER</span><span class="ticker-dot">◆</span>
+            <span class="ticker-item">WIN10 / WIN11</span><span class="ticker-dot">◆</span>
+            <span class="ticker-item">PORTABLE</span><span class="ticker-dot">◆</span>
+            <span class="ticker-item">AMD + INTEL + NVIDIA</span><span class="ticker-dot">◆</span>
+            <span class="ticker-item">ZERO ADS</span>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:var(--bg);border-top:1px solid var(--border);position:relative;overflow:hidden;padding:64px clamp(20px,10%,160px) 96px;">
+    <!-- Footer watermark -->
+    <div style="position:absolute;bottom:-50px;right:-40px;font-family:var(--font-bebas);font-size:clamp(6rem, 18vw, 16rem);color:transparent;-webkit-text-stroke:1px rgba(255,45,120,0.04);pointer-events:none;user-select:none;line-height:1;letter-spacing:-0.5px;animation:watermark-glitch 9s infinite linear;">VOID</div>
+    
+    <div style="max-width:1240px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;position:relative;z-index:2;">
+        <!-- Brand -->
+        <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                <div class="void-pulse" style="width:16px;height:16px;background:linear-gradient(135deg, var(--pink), var(--violet));flex-shrink:0;"></div>
+                <span style="font-family:var(--font-mono);font-weight:800;font-size:14px;letter-spacing:3px;">
+                    <span style="color:rgba(255,255,255,0.9);">VOID</span><span style="color:var(--pink);">TUNE</span>
+                </span>
+            </div>
+            <p style="font-family:var(--font-mono);font-size:10px;color:var(--muted);line-height:1.85;max-width:260px;margin-bottom:24px;">
+                Open source Windows optimization suite. Pink. Dark. Void. Free forever.
+            </p>
+            <div style="display:flex;align-items:center;gap:6px;">
+                <span class="blink-dot" style="width:5px;height:5px;border-radius:50%;background:var(--pink);flex-shrink:0;"></span>
+                <span style="font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,0.28);letter-spacing:2px;text-transform:uppercase;">V0.8 STABLE · ACTIVE DEVELOPMENT</span>
+            </div>
+        </div>
+        
+<!-- Links: PROJECT -->
+<div>
+    <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:3px;color:var(--muted);margin-bottom:16px;text-transform:uppercase;">PROJECT</div>
+    <a href="https://github.com/otzpt/VOIDTUNE" target="_blank" style="display:block;font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.38);text-decoration:none;margin-bottom:8px;transition:color 0.15s;" onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='rgba(255,255,255,0.38)'">GitHub</a>
+    <a href="VOIDTUNE_0.8V.zip" download style="display:block;font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.38);text-decoration:none;margin-bottom:8px;transition:color 0.15s;" onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='rgba(255,255,255,0.38)'">Releases</a>
+    <a href="#roadmap" style="display:block;font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.38);text-decoration:none;margin-bottom:8px;transition:color 0.15s;" onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='rgba(255,255,255,0.38)'">Roadmap</a>
+    <a href="VOIDTUNE_0.8V.zip" download style="display:block;font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.38);text-decoration:none;margin-bottom:8px;transition:color 0.15s;" onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='rgba(255,255,255,0.38)'">Changelog</a>
+</div>
+
+<!-- Links: SUPPORT -->
+<div>
+    <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:3px;color:var(--muted);margin-bottom:16px;text-transform:uppercase;">SUPPORT</div>
+    <a href="#faq" style="display:block;font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.38);text-decoration:none;margin-bottom:8px;transition:color 0.15s;" onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='rgba(255,255,255,0.38)'">FAQ</a>
+    <a href="https://discord.gg/YOURINVITE" target="_blank" style="display:block;font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.38);text-decoration:none;margin-bottom:8px;transition:color 0.15s;" onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='rgba(255,255,255,0.38)'">Discord</a>
+    <a href="https://github.com/otzpt/VOIDTUNE/issues" target="_blank" style="display:block;font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.38);text-decoration:none;margin-bottom:8px;transition:color 0.15s;" onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='rgba(255,255,255,0.38)'">Issues</a>
+    <a href="https://github.com/otzpt/VOIDTUNE/wiki" target="_blank" style="display:block;font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.38);text-decoration:none;margin-bottom:8px;transition:color 0.15s;" onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='rgba(255,255,255,0.38)'">Wiki</a>
+</div>
+
+<!-- Links: LEGAL -->
+<div>
+    <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:3px;color:var(--muted);margin-bottom:16px;text-transform:uppercase;">LEGAL</div>
+    <a href="https://github.com/otzpt/VOIDTUNE/blob/main/LICENSE" target="_blank" style="display:block;font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.38);text-decoration:none;margin-bottom:8px;transition:color 0.15s;" onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='rgba(255,255,255,0.38)'">GPL v3 License</a>
+    <a href="https://github.com/otzpt/VOIDTUNE#privacy" target="_blank" style="display:block;font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.38);text-decoration:none;margin-bottom:8px;transition:color 0.15s;" onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='rgba(255,255,255,0.38)'">Privacy Policy</a>
+    <a href="https://github.com/otzpt/VOIDTUNE#privacy" target="_blank" style="display:block;font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.38);text-decoration:none;margin-bottom:8px;transition:color 0.15s;" onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='rgba(255,255,255,0.38)'">No Telemetry</a>
+</div>
+
+<!-- Links: ECOSYSTEM -->
+<div>
+    <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:3px;color:var(--muted);margin-bottom:16px;text-transform:uppercase;">ECOSYSTEM</div>
+    <a href='/c-edition' onmouseout='this.style.color=\'rgba(255,255,255,0.38)\'' onmouseover='this.style.color=\'var(--pink)\'' style='display:block;font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.38);text-decoration:none;margin-bottom:8px;transition:color 0.15s;'>C Edition</a>
+    <a href='/companion' onmouseout='this.style.color=\'rgba(255,255,255,0.38)\'' onmouseover='this.style.color=\'var(--pink)\'' style='display:block;font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.38);text-decoration:none;margin-bottom:8px;transition:color 0.15s;'>Mobile Companion</a>
+    <a href='/v-agent' onmouseout='this.style.color=\'rgba(255,255,255,0.38)\'' onmouseover='this.style.color=\'var(--violet)\'' style='display:block;font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.38);text-decoration:none;margin-bottom:8px;transition:color 0.15s;'>V-Agent</a>
+    <a href="https://x.com/otzpt_dev" target="_blank" rel="noopener" style="display:block;font-family:var(--font-mono);font-size:10px;color:rgba(255,255,255,0.38);text-decoration:none;margin-bottom:8px;transition:color 0.15s;" onmouseover="this.style.color='var(--pink)'" onmouseout="this.style.color='rgba(255,255,255,0.38)'">@otzpt_dev</a>
+</div>
+    
+    <!-- Footer bottom -->
+    <div style="max-width:1240px;margin:48px auto 0;padding-top:32px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:relative;z-index:2;">
+        <span style="font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,0.18);letter-spacing:2px;">© 2026 VOIDTUNE · BOTZFT · GPL v3</span>
+        <span style="font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,0.18);letter-spacing:2px;">ENTER THE VOID · ZERO COMPROMISES</span>
+    </div>
+</footer>
+
+<!-- JAVASCRIPT -->
+<script>
+    // FAQ Toggle
+    function toggleFAQ(btn) {
+        const answer = btn.nextElementSibling;
+        const toggle = btn.querySelector('.faq-toggle');
+        const isActive = answer.classList.contains('active');
+        
+        // Close all
+        document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('active'));
+        document.querySelectorAll('.faq-toggle').forEach(t => t.textContent = '[+]');
+        
+        // Open clicked
+        if (!isActive) {
+            answer.classList.add('active');
+            toggle.textContent = '[–]';
+        }
+    }
+
+    // Nav scroll effect
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('nav');
+        if (window.scrollY > 60) {
+            nav.style.background = 'rgba(4,4,7,0.98)';
+        } else {
+            nav.style.background = 'rgba(4,4,7,0.85)';
+        }
+    });
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
+
+</body>
+</html>
