@@ -4,11 +4,14 @@ The VOIDTUNE site. Hand-written static HTML — one self-contained file per
 page, CSS and JS inline, no build step and no framework.
 
 ```
-index.html          landing page (features, compare, download, FAQ, roadmap)
-c-edition.html      VOIDTUNE C edition
-companion.html      mobile companion
-v-agent.html        V-Agent
-VOIDTUNE_0.8V.zip   download served by the landing page
+index.html                      landing page
+v-agent/index.html              V-Agent
+c-edition/index.html            VOIDTUNE One-Click (C edition)
+companion/index.html            mobile companion
+assets/                         vt.css, vt.js, detail.js, explorer.js,
+                                terminal.js, tweaks.js  (shared)
+icon.png, icon.svg              site icon
+google03a73d05a97838af.html     Google Search Console verification
 ```
 
 ## Local
@@ -23,7 +26,9 @@ python3 -m http.server 8000
 ## Deployment
 
 Vercel, at [voidtune-website.vercel.app](https://voidtune-website.vercel.app).
-`vercel.json` sets `cleanUrls`, so `/c-edition` serves `c-edition.html`.
+`vercel.json` is a direct port of the old `netlify.toml`: `trailingSlash`
+reproduces its `/v-agent` -> `/v-agent/` redirects, and the same cache and
+security headers are set for `/icon.png`, `/assets/*` and HTML.
 
 Pushing to `main` runs `.github/workflows/deploy.yml`: it checks every page
 parses and that every local link resolves to a file that exists, then deploys.
@@ -32,8 +37,13 @@ still runs and the deploy skips rather than failing the build.
 
 ## History
 
-This site was previously hosted on Netlify. The old Netlify URL now serves a
-redirect here.
+Previously hosted on Netlify; the old Netlify URL now redirects here.
+
+The site source was not in any repo, and the Netlify deploy had been replaced
+by that redirect. The pages, shared assets, icons and the Google verification
+file were recovered from local downloads; an earlier, flat, single-file version
+of the site also exists in the Wayback Machine's 2026-05-26 snapshot, which is
+what confirmed the original URL structure.
 
 An interactive 3D version of this site was built and then reverted — it lives
 on the `3d-cinematic` branch (React, three.js, FastAPI backend, C helper that
@@ -45,8 +55,7 @@ git checkout 3d-cinematic
 
 ## Known issues
 
-- The Discord link in `index.html` is a placeholder (`discord.gg/YOURINVITE`);
-  the real invite is `discord.gg/vAWqWD2e6R`.
-- `VOIDTUNE_0.8V.zip` is the PowerShell-era 0.8 build recovered with the rest
-  of the site. Current releases are on
-  [GitHub](https://github.com/otzpt/VOIDTUNE/releases/latest).
+- **`assets/tutorial.js` is missing.** `index.html` loads it with a `<script>`
+  tag, so the browser logs a 404 and whatever it powers does not run. Nothing
+  else references it by name, so no other JavaScript breaks. Drop the file into
+  `assets/` to fix.
