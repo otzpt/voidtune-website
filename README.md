@@ -4,12 +4,13 @@ The VOIDTUNE site. Hand-written static HTML — one self-contained file per
 page, CSS and JS inline, no build step and no framework.
 
 ```
-index.html                      landing page
+voidtune/index.html             landing page (served at / on the VOIDTUNE domain)
 v-agent/index.html              V-Agent
 c-edition/index.html            VOIDTUNE One-Click (C edition)
 companion/index.html            mobile companion
 assets/                         vt.css, vt.js, detail.js, explorer.js,
-                                terminal.js, tweaks.js  (shared)
+                                terminal.js, tweaks.js, latest.js  (shared)
+api/latest.js                   serverless: current release from GitHub
 icon.png, icon.svg              site icon
 google03a73d05a97838af.html     Google Search Console verification
 ```
@@ -23,12 +24,48 @@ production (`/c-edition` rather than `/c-edition.html`):
 python3 -m http.server 8000
 ```
 
-## Deployment
+## Two sites, one repo
 
-Vercel, at [voidtune-website.vercel.app](https://voidtune-website.vercel.app).
-`vercel.json` is a direct port of the old `netlify.toml`: `trailingSlash`
-reproduces its `/v-agent` -> `/v-agent/` redirects, and the same cache and
-security headers are set for `/icon.png`, `/assets/*` and HTML.
+| Domain | Serves |
+| --- | --- |
+| [voidtune-website.vercel.app](https://voidtune-website.vercel.app) | `voidtune/index.html` |
+| [v-agent-ide.vercel.app](https://v-agent-ide.vercel.app) | `v-agent/index.html` |
+
+Both Vercel projects deploy this same repo; a host-conditional rewrite in
+`vercel.json` decides which page `/` serves. No duplicated assets.
+
+Two things that are easy to get wrong here, both learned the hard way:
+
+- **Rewrites only apply when no file matches the path.** While `index.html`
+  sat at the repo root, `/` matched it and the host rule never ran. Moving the
+  landing page into `voidtune/` is what makes the rewrites reachable.
+- **`cleanUrls` must stay off.** It 308s `/googleXXXX.html` to the extensionless
+  path, and Google Search Console checks that exact `.html` URL.
+
+`vercel.json` otherwise ports the old `netlify.toml`: the same cache and
+security headers for `/icon.png`, `/assets/*` and HTML.
+
+## Download links
+
+Buttons read the current release from `/api/latest?repo=voidtune|one-click|v-agent`,
+which asks the GitHub releases API server-side and caches the answer at the edge
+for an hour (`stale-while-revalidate` for a day). Server-side because GitHub
+allows 60 unauthenticated requests/hour *per IP*, which one shared office NAT
+can exhaust for everybody behind it.
+
+It is progressive enhancement: the HTML ships a real, working link and a real
+version, and JavaScript only overwrites them once the API answers. If the API
+is down the page still offers a valid, if older, download.
+
+```html
+<a data-latest="voidtune">Download</a>                        <!-- href only -->
+<a data-latest="voidtune" data-latest-asset="portable">…</a>   <!-- that asset -->
+<span data-latest="voidtune" data-latest-tpl="{kind} · {size}">…</span>
+```
+
+`/assets/*` is cached for a week, so **bump the `?v=` on the `latest.js` script
+tags whenever that file changes** — otherwise returning visitors keep the old
+copy.
 
 Pushing to `main` runs `.github/workflows/deploy.yml`: it checks every page
 parses and that every local link resolves to a file that exists, then deploys.
