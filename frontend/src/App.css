@@ -11,7 +11,8 @@
 
 canvas {
   display: block;
-  touch-action: none;
+  /* touch-action stays default: the canvas must not swallow touch gestures,
+     since scrolling is the only way through the page. */
 }
 
 /* ---- nav ---- */
@@ -255,6 +256,7 @@ body {
   position: fixed;
   inset: 0;
   z-index: 0;
+  pointer-events: none;
 }
 
 .cine-track {
