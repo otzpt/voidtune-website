@@ -1,0 +1,125 @@
+[
+  {
+    "id": "case",
+    "name": "Case / Chassis",
+    "short": "The enclosure everything mounts to.",
+    "description": "The chassis holds every other component in fixed positions and defines the airflow path. Standoffs isolate the motherboard from the metal tray so the board's solder joints never short against it. Case size (ATX, mATX, ITX) determines which motherboard form factors fit.",
+    "connects_to": ["motherboard", "psu", "fan_front", "fan_rear", "storage"],
+    "facts": [
+      "Airflow direction matters more than fan count: intake at the front, exhaust at the rear and top.",
+      "Standoffs are not optional -- mounting a board directly to the tray shorts it."
+    ]
+  },
+  {
+    "id": "motherboard",
+    "name": "Motherboard",
+    "short": "The board every component plugs into.",
+    "description": "The motherboard routes power and data between every component. The chipset splits the board into lanes: the CPU gets direct PCIe lanes to the GPU and primary M.2 slot, while the chipset handles the slower peripherals over a shared uplink. Trace length matters -- RAM slots are laid out so signal timing stays within spec at rated speeds.",
+    "connects_to": ["cpu", "ram", "gpu", "storage", "psu", "cpu_socket"],
+    "facts": [
+      "The 24-pin ATX connector feeds the board; the CPU has its own separate 8-pin EPS rail.",
+      "Slots nearest the CPU are wired directly to it; the rest go through the chipset."
+    ]
+  },
+  {
+    "id": "cpu",
+    "name": "CPU",
+    "short": "Executes instructions. The part VOIDTUNE tunes most.",
+    "description": "The processor fetches instructions from memory, decodes them, executes them, and writes results back. Modern desktop CPUs contain multiple cores, each with private L1/L2 cache, sharing a larger L3. The OS scheduler decides which thread runs on which core, and that scheduling decision is exactly what several VOIDTUNE tweaks influence.",
+    "connects_to": ["cpu_socket", "cpu_cooler", "ram", "motherboard"],
+    "facts": [
+      "Clock speed alone doesn't determine speed -- instructions per clock (IPC) matters as much.",
+      "Hybrid CPUs (Intel P/E-core) make core choice a correctness issue, not just a speed one."
+    ]
+  },
+  {
+    "id": "cpu_socket",
+    "name": "CPU Socket",
+    "short": "Mechanical and electrical interface for the CPU.",
+    "description": "The socket holds hundreds to thousands of spring-loaded contacts (LGA: pins on the socket; PGA: pins on the chip). A retention arm applies even pressure so every contact meets its pad. Bent pins in an LGA socket are a board-level repair, not a CPU problem.",
+    "connects_to": ["cpu", "motherboard"],
+    "facts": [
+      "LGA1700, AM5 and similar names encode the contact count.",
+      "The socket carries both power delivery and every data lane the CPU exposes."
+    ]
+  },
+  {
+    "id": "cpu_cooler",
+    "name": "CPU Cooler",
+    "short": "Moves heat off the CPU lid.",
+    "description": "A cooler moves heat from the CPU's integrated heat spreader into the air. Thermal paste fills the microscopic gaps between lid and coldplate -- it is a gap filler, not a conductor upgrade. When cooling is insufficient the CPU throttles clocks to stay within its thermal limit, which is why 'max performance' settings can lower real performance on thermally limited machines.",
+    "connects_to": ["cpu", "fan_rear"],
+    "facts": [
+      "Thermal throttling is a protective response, not a failure.",
+      "On laptops, aggressive performance settings often reduce FPS by removing thermal headroom."
+    ]
+  },
+  {
+    "id": "ram",
+    "name": "RAM (DIMMs)",
+    "short": "Working memory the CPU reads and writes directly.",
+    "description": "System memory holds running code and data. The CPU's integrated memory controller talks to DIMMs over channels -- populating the correct slots enables dual-channel and roughly doubles bandwidth. RAM is volatile: contents are lost at power-off. When RAM runs out, the OS pages to storage, which is orders of magnitude slower.",
+    "connects_to": ["motherboard", "cpu"],
+    "facts": [
+      "Slot order matters: the manual's dual-channel pairs are usually slots 2 and 4.",
+      "Advertised XMP/EXPO speeds require enabling the profile in firmware; the default is slower."
+    ]
+  },
+  {
+    "id": "gpu",
+    "name": "GPU",
+    "short": "Renders frames. Thousands of parallel cores.",
+    "description": "The graphics card renders frames using thousands of small cores optimized for parallel work, backed by its own high-bandwidth VRAM. It plugs into a PCIe x16 slot wired directly to the CPU. In games the CPU prepares draw calls and the GPU executes them, so a slow CPU can leave a fast GPU idle -- the 'CPU bottleneck'.",
+    "connects_to": ["motherboard", "psu"],
+    "facts": [
+      "VRAM capacity limits texture/resolution settings independently of raw GPU speed.",
+      "Modern cards draw most of their power from PCIe connectors, not the slot."
+    ]
+  },
+  {
+    "id": "psu",
+    "name": "Power Supply",
+    "short": "Converts wall AC into the DC rails everything uses.",
+    "description": "The PSU converts mains AC into regulated 12V, 5V and 3.3V DC. Nearly all modern load sits on the 12V rail. Transient spikes from GPUs can briefly exceed the average draw by a wide margin, which is why headroom matters more than a spec-sheet wattage match.",
+    "connects_to": ["motherboard", "gpu", "storage", "case"],
+    "facts": [
+      "The 24-pin feeds the board; the CPU's 8-pin EPS and the GPU's connectors are separate.",
+      "Efficiency ratings (80+ Bronze/Gold) describe conversion loss, not stability or quality."
+    ]
+  },
+  {
+    "id": "storage",
+    "name": "Storage (NVMe / SSD)",
+    "short": "Non-volatile storage. Holds the OS and files.",
+    "description": "Storage keeps data when power is removed. NVMe drives connect over PCIe lanes directly rather than through the older SATA interface, which removes a protocol bottleneck. The OS uses storage as backing for virtual memory, so storage speed affects system responsiveness under memory pressure, not just file copies.",
+    "connects_to": ["motherboard", "psu"],
+    "facts": [
+      "An M.2 slot may be wired to the CPU or the chipset; the CPU-connected slot is faster.",
+      "Sequential benchmark numbers rarely reflect real-world random-access performance."
+    ]
+  },
+  {
+    "id": "fan_front",
+    "name": "Intake Fan",
+    "short": "Pulls cool air into the case.",
+    "description": "Intake fans bring ambient air across storage and toward the GPU and CPU. Balanced intake and exhaust keeps case pressure slightly positive, which reduces dust ingress through unfiltered gaps.",
+    "connects_to": ["case", "motherboard"],
+    "facts": ["Fan curves trade noise against temperature; both are tunable in firmware."]
+  },
+  {
+    "id": "fan_rear",
+    "name": "Exhaust Fan",
+    "short": "Pushes heated air out.",
+    "description": "The rear fan removes air already warmed by the CPU cooler, preventing recirculation of hot air back over the components.",
+    "connects_to": ["case", "cpu_cooler"],
+    "facts": ["Rear exhaust sits in line with the CPU cooler for a reason: it continues the airflow path."]
+  },
+  {
+    "id": "cables",
+    "name": "Power Cables",
+    "short": "Carry DC power from the PSU to each component.",
+    "description": "Cable runs deliver the PSU's DC rails to the board, CPU and GPU. Routing them behind the tray is not only cosmetic -- it keeps the main airflow path unobstructed.",
+    "connects_to": ["psu", "motherboard", "gpu"],
+    "facts": ["Modular PSU cables are not cross-compatible between brands even when connectors fit."]
+  }
+]

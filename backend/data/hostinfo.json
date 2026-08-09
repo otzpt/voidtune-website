@@ -1,0 +1,29 @@
+{
+  "available": true,
+  "source": "c/cpuinfo (sysconf + /sys/devices/system/cpu)",
+  "cores_online": 12,
+  "page_size_bytes": 4096,
+  "cache_line_bytes": 64,
+  "caches": [
+    {"level": 1, "type": "Data", "size_kb": 32},
+    {"level": 1, "type": "Instruction", "size_kb": 32},
+    {"level": 2, "type": "Unified", "size_kb": 1024},
+    {"level": 3, "type": "Unified", "size_kb": 32768}
+  ],
+  "latency": [
+    {"working_set_kb": 4, "latency_ns": 1.09},
+    {"working_set_kb": 16, "latency_ns": 0.93},
+    {"working_set_kb": 32, "latency_ns": 1.26},
+    {"working_set_kb": 64, "latency_ns": 2.31},
+    {"working_set_kb": 128, "latency_ns": 2.92},
+    {"working_set_kb": 256, "latency_ns": 3.33},
+    {"working_set_kb": 512, "latency_ns": 3.95},
+    {"working_set_kb": 1024, "latency_ns": 5.58},
+    {"working_set_kb": 2048, "latency_ns": 9.00},
+    {"working_set_kb": 4096, "latency_ns": 10.72},
+    {"working_set_kb": 8192, "latency_ns": 12.38},
+    {"working_set_kb": 16384, "latency_ns": 24.93},
+    {"working_set_kb": 32768, "latency_ns": 62.36},
+    {"working_set_kb": 65536, "latency_ns": 76.36}
+  ]
+}

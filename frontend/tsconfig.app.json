@@ -22,5 +22,7 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  // Node test file: typechecked by its own run, not by the browser build.
+  "exclude": ["src/**/*.test.ts"]
 }
