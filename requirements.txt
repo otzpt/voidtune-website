@@ -1,0 +1,4 @@
+# Vercel installs from the repo root for Python functions under /api.
+# Mirrors backend/requirements.txt minus uvicorn, which Vercel provides.
+fastapi>=0.115
+pydantic>=2.9

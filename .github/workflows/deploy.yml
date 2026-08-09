@@ -1,0 +1,85 @@
+# Auto-deploy to Vercel on push to main.
+#
+# Used instead of Vercel's own Git integration because that requires
+# authorising the Vercel GitHub App on this repo through a browser. This path
+# needs one secret: VERCEL_TOKEN (Vercel → Account Settings → Tokens).
+# The org and project ids are not secret and are set as env vars below.
+#
+# If the Vercel GitHub App is ever connected, delete this workflow -- having
+# both means every push deploys twice.
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+env:
+  VERCEL_ORG_ID: team_5m5zCDqazLonj0sbUBItRASY
+  VERCEL_PROJECT_ID: prj_B67Lzv2df36CG37xlb2d62rhbsll
+
+jobs:
+  build-and-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend deps
+        run: npm ci
+        working-directory: frontend
+
+      - name: Typecheck and build
+        run: npm run build
+        working-directory: frontend
+
+      - name: Lint
+        run: npm run lint
+        working-directory: frontend
+
+      - name: Validate scene data
+        run: node --experimental-strip-types src/scenes/pcLayout.test.ts
+        working-directory: frontend
+
+      # The C helper must still compile; its measured output is committed, but
+      # a broken source would go unnoticed otherwise.
+      - name: Build C helper
+        run: cc -O2 -Wall -Wextra -o cpuinfo cpuinfo.c && ./cpuinfo
+        working-directory: c
+
+      - name: Check backend imports and data files parse
+        run: |
+          python -m pip install -q -r requirements.txt
+          python -c "
+          import json, pathlib, sys
+          sys.path.insert(0, 'backend')
+          import main
+          for name in ['components', 'architecture', 'tweaks', 'hostinfo']:
+              data = json.loads(pathlib.Path(f'backend/data/{name}.json').read_text())
+              print(name, 'ok', len(data) if isinstance(data, list) else 'object')
+          "
+
+  deploy:
+    needs: build-and-check
+    runs-on: ubuntu-latest
+    # Skips cleanly rather than failing the run when the token has not been
+    # added yet, so the build checks above still provide value on their own.
+    if: ${{ github.event_name == 'push' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          if [ -z "$VERCEL_TOKEN" ]; then
+            echo "VERCEL_TOKEN is not set -- skipping deploy."
+            echo "Add it at: Settings → Secrets and variables → Actions"
+            exit 0
+          fi
+          npx vercel@latest pull --yes --environment=production --token="$VERCEL_TOKEN"
+          npx vercel@latest build --prod --token="$VERCEL_TOKEN"
+          npx vercel@latest deploy --prebuilt --prod --token="$VERCEL_TOKEN"
