@@ -92,7 +92,7 @@ git checkout 3d-cinematic
 
 ## Known issues
 
-- **`assets/tutorial.js` is missing.** `index.html` loads it with a `<script>`
-  tag, so the browser logs a 404 and whatever it powers does not run. Nothing
-  else references it by name, so no other JavaScript breaks. Drop the file into
-  `assets/` to fix.
+None currently tracked. (`assets/tutorial.js` was previously listed here as a
+missing 404 -- it drove the "optimization preview" demo section, which has
+since been removed along with the script tag; see repo issues #1-#3 for that
+change.)

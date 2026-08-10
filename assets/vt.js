@@ -81,13 +81,22 @@
     return pts;
   }
 
+  // Cores is the one hint every browser gives us for free (deviceMemory is
+  // Chromium-only and still just a hint, so it's a secondary signal, not a
+  // requirement). 4 cores or fewer -- typical of a budget laptop or a phone
+  // reporting through a browser -- gets the light profile: a third of the
+  // particles and a DPR cap of 1, since the glow sprites are what actually
+  // cost the frame, not the wireframe.
+  const LOW_TIER = (navigator.hardwareConcurrency || 8) <= 4 ||
+    (navigator.deviceMemory && navigator.deviceMemory <= 4);
+
   function mountHero(canvas) {
     const ctx = canvas.getContext('2d', { alpha: true });
     let rgb = hexToRgb(readAccent(canvas));
-    const DPR = Math.min(window.devicePixelRatio || 1, 2);
+    const DPR = Math.min(window.devicePixelRatio || 1, LOW_TIER ? 1 : 2);
     let SP = glowSprite(rgb, 64);
     const geo = icosa();
-    const parts = sphere(170, 1.46);
+    const parts = sphere(LOW_TIER ? 60 : 170, 1.46);
     let W = 0, H = 0, cx = 0, cy = 0, scale = 1;
     // allow live recolor (tweaks panel)
     (window.VT_HEROES = window.VT_HEROES || []).push((hex) => { rgb = hexToRgb(hex); SP = glowSprite(rgb, 64); });

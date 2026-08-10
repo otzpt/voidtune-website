@@ -415,7 +415,6 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
   <a href="#results" data-chapter="results"><i></i><span class="lbl">Results</span></a>
   <a href="#system" data-chapter="system"><i></i><span class="lbl">System</span></a>
   <a href="#process" data-chapter="process"><i></i><span class="lbl">Process</span></a>
-  <a href="#demo3d" data-chapter="demo3d"><i></i><span class="lbl">Demo</span></a>
   <a href="#download" data-chapter="download"><i></i><span class="lbl">Acquire</span></a>
   <a href="#support" data-chapter="support"><i></i><span class="lbl">Support</span></a>
 </nav>
@@ -454,7 +453,7 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
           </p>
 
           <div class="hero-cta">
-            <a href="#download" class="btn btn-violet" data-magnetic="0.25">
+            <a href="#download" class="btn btn-violet">
               <span data-latest="voidtune" data-latest-tpl="Download {version}">Download</span>
               <span class="mono" style="font-size:12px;opacity:.7" data-latest="voidtune" data-latest-tpl="· {kind} · {size}">· Installer</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v12m0 0l-5-5m5 5l5-5M5 20h14"/></svg>
@@ -622,159 +621,6 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
     </div>
   </section>
 
-  <!-- INTERACTIVE 3D DEMO -->
-  <style>
-  #demo3d .d3-intro{display:flex;flex-direction:column;gap:1.5rem;max-width:42rem}
-  #demo3d .d3-chips{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:2.5rem}
-  #demo3d .d3-chip{display:flex;align-items:center;gap:.6rem;padding:.55rem .9rem;border:1px solid var(--border);border-radius:999px;
-    font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-foreground);transition:all .4s var(--ease)}
-  #demo3d .d3-chip .i{font-family:var(--display);font-size:12px;color:var(--muted-foreground)}
-  #demo3d .d3-chip.active{border-color:color-mix(in oklab,var(--violet) 55%,transparent);color:var(--foreground);background:rgba(167,139,250,.08);box-shadow:0 0 0 1px rgba(167,139,250,.25)}
-  #demo3d .d3-chip.active .i{color:var(--violet-glow)}
-
-  #demo3d .d3-stage{position:relative;margin-top:4.5rem;height:min(76vh,660px);perspective:1500px;perspective-origin:55% 36%;transform-style:preserve-3d}
-  #demo3d .d3-floor{position:absolute;left:-10%;right:-10%;bottom:-4%;height:60%;transform-origin:bottom center;transform:rotateX(80deg);
-    background:repeating-linear-gradient(90deg,rgba(167,139,250,.14) 0 1px,transparent 1px 70px),repeating-linear-gradient(0deg,rgba(167,139,250,.14) 0 1px,transparent 1px 70px);
-    -webkit-mask-image:radial-gradient(ellipse 60% 100% at 50% 100%,#000,transparent 75%);mask-image:radial-gradient(ellipse 60% 100% at 50% 100%,#000,transparent 75%);opacity:.45;transition:opacity .8s,background .8s}
-  #demo3d.opt .d3-floor{background:repeating-linear-gradient(90deg,rgba(124,242,110,.16) 0 1px,transparent 1px 70px),repeating-linear-gradient(0deg,rgba(124,242,110,.16) 0 1px,transparent 1px 70px);opacity:.6}
-
-  #demo3d .d3-monitor{position:absolute;top:50%;left:56%;width:min(62%,660px);aspect-ratio:16/10;
-    transform:translate(-50%,-56%) translateZ(-110px) rotateX(7deg) rotateY(-15deg);transform-style:preserve-3d;
-    transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
-  #demo3d.opt .d3-monitor{transform:translate(-50%,-56%) translateZ(10px) rotateX(3deg) rotateY(-7deg)}
-  #demo3d .d3-bezel{position:absolute;inset:0;border-radius:16px;background:linear-gradient(155deg,#211c30,#0b0910);padding:15px;
-    border:1px solid rgba(244,241,234,.08);box-shadow:0 70px 130px -45px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.06)}
-  #demo3d .d3-screen{position:absolute;inset:15px;border-radius:7px;overflow:hidden;background:#05060a}
-  #demo3d .d3-game{position:absolute;inset:0;width:100%;height:100%;display:block;filter:blur(6px) saturate(.65) brightness(.78);transition:filter 1s ease}
-  #demo3d.opt .d3-game{filter:blur(0) saturate(1.2) brightness(1.06)}
-  #demo3d .d3-scan{position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:.5;
-    background:repeating-linear-gradient(0deg,rgba(0,0,0,.4) 0 1px,transparent 1px 3px)}
-  #demo3d .d3-glare{position:absolute;inset:0;pointer-events:none;border-radius:7px;
-    background:linear-gradient(120deg,rgba(255,255,255,.10),transparent 38%);}
-  #demo3d .d3-vig{position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 80px rgba(0,0,0,.7);border-radius:7px}
-  #demo3d .d3-stand{position:absolute;left:50%;bottom:-52px;width:120px;height:54px;transform:translateX(-50%) rotateX(-26deg);transform-origin:top;
-    background:linear-gradient(#1a1726,#0b0910);border:1px solid rgba(244,241,234,.06);border-radius:0 0 10px 10px}
-  #demo3d .d3-stand::after{content:"";position:absolute;left:50%;bottom:-10px;width:180px;height:12px;transform:translateX(-50%);border-radius:50%;background:rgba(0,0,0,.5);filter:blur(6px)}
-
-  /* HUD / FPS */
-  #demo3d .d3-hud{position:absolute;top:16px;left:18px;z-index:4;pointer-events:none}
-  #demo3d .d3-fps{display:flex;align-items:baseline;gap:.5rem;line-height:.85}
-  #demo3d .d3-fps .n{font-family:var(--display);font-weight:300;font-size:clamp(2.6rem,6vw,5rem);font-variant-numeric:tabular-nums;
-    color:#ff6b6b;text-shadow:0 0 26px currentColor;transition:color .35s}
-  #demo3d .d3-fps .u{font-family:var(--mono);font-size:11px;letter-spacing:.35em;color:var(--muted-foreground)}
-  #demo3d .d3-graph{display:flex;align-items:flex-end;gap:2px;height:38px;width:clamp(120px,16vw,190px);margin-top:.6rem}
-  #demo3d .d3-graph i{flex:1;height:10%;border-radius:1px;background:linear-gradient(#ff6b6b,transparent);transition:height .12s linear}
-  #demo3d .d3-ft{margin-top:.5rem;font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-foreground)}
-
-  /* tweaks panel */
-  #demo3d .d3-panel{position:absolute;top:50%;left:3%;width:min(33%,320px);z-index:3;
-    transform:translateY(-50%) translateZ(120px) rotateY(15deg);transform-style:preserve-3d;
-    border-radius:14px;padding:1.4rem 1.4rem 1.6rem;
-    background:linear-gradient(180deg,rgba(40,32,60,.7),rgba(18,14,26,.78));backdrop-filter:blur(16px) saturate(140%);
-    -webkit-backdrop-filter:blur(16px) saturate(140%);border:1px solid rgba(244,241,234,.1);
-    box-shadow:0 50px 100px -40px rgba(0,0,0,.9)}
-  #demo3d .d3-panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.4rem}
-  #demo3d .d3-panel-head .t{font-family:var(--mono);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted-foreground)}
-  #demo3d .d3-panel-head .d{width:7px;height:7px;border-radius:50%;background:var(--violet);box-shadow:0 0 10px var(--violet);animation:pulse-dot 2s ease-in-out infinite}
-  #demo3d .d3-row{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.7rem 0;border-top:1px solid var(--border);cursor:pointer}
-  #demo3d .d3-row .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--muted-foreground);transition:color .3s}
-  #demo3d .d3-row.on .lbl{color:var(--foreground)}
-  #demo3d .d3-sw{flex:none;width:42px;height:23px;border-radius:999px;background:var(--secondary);border:1px solid var(--border-strong);position:relative;transition:background .3s}
-  #demo3d .d3-sw::after{content:"";position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:50%;background:#6b6478;transition:transform .3s var(--ease),background .3s}
-  #demo3d .d3-row.on .d3-sw{background:linear-gradient(90deg,var(--violet-deep),var(--violet))}
-  #demo3d .d3-row.on .d3-sw::after{transform:translateX(19px);background:#fff}
-
-  #demo3d .d3-cursor{position:absolute;z-index:6;left:0;top:0;width:24px;height:24px;opacity:0;pointer-events:none;
-    transition:transform .7s cubic-bezier(.5,0,.2,1),opacity .4s;filter:drop-shadow(0 5px 8px rgba(0,0,0,.6))}
-  #demo3d .d3-cursor.tap{animation:d3tap .35s var(--ease)}
-  @keyframes d3tap{50%{transform:scale(.82)}}
-
-  /* controls */
-  #demo3d .d3-controls{margin-top:6rem;display:flex;align-items:center;justify-content:center;gap:1.4rem;flex-wrap:wrap}
-  #demo3d .d3-master{display:inline-flex;align-items:center;gap:1rem;padding:.85rem 1.1rem .85rem 1.4rem;border-radius:999px;cursor:pointer;
-    background:rgba(28,24,39,.6);border:1px solid var(--border-strong);transition:all .4s var(--ease)}
-  #demo3d .d3-master:hover{border-color:var(--violet)}
-  #demo3d .d3-master .d3-master-label{font-family:var(--mono);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--muted-foreground);transition:color .3s}
-  #demo3d .d3-master .big-sw{width:54px;height:28px;border-radius:999px;background:var(--secondary);border:1px solid var(--border-strong);position:relative;transition:background .4s}
-  #demo3d .d3-master .big-sw::after{content:"";position:absolute;top:2px;left:2px;width:22px;height:22px;border-radius:50%;background:#6b6478;transition:transform .4s var(--ease),background .4s}
-  #demo3d .d3-master.on{border-color:color-mix(in oklab,#7cf26e 50%,transparent);background:rgba(124,242,110,.08)}
-  #demo3d .d3-master.on .d3-master-label{color:#9bff8e}
-  #demo3d .d3-master.on .big-sw{background:linear-gradient(90deg,#3f9e34,#7cf26e)}
-  #demo3d .d3-master.on .big-sw::after{transform:translateX(26px);background:#fff}
-  #demo3d .d3-replay{display:inline-flex;align-items:center;gap:.6rem;padding:.85rem 1.3rem;border-radius:999px;cursor:pointer;
-    font-family:var(--mono);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted-foreground);
-    background:transparent;border:1px solid var(--border);transition:all .3s}
-  #demo3d .d3-replay:hover{color:var(--foreground);border-color:var(--border-strong)}
-  #demo3d .d3-replay svg{width:14px;height:14px}
-
-  @media(max-width:900px){
-    #demo3d .d3-stage{height:auto;perspective:none;display:flex;flex-direction:column;gap:2.5rem;align-items:center}
-    #demo3d .d3-floor{display:none}
-    #demo3d .d3-monitor,#demo3d.opt .d3-monitor{position:relative;top:auto;left:auto;width:100%;transform:none}
-    #demo3d .d3-stand{display:none}
-    #demo3d .d3-panel{position:relative;top:auto;left:auto;width:100%;transform:none}
-    #demo3d .d3-cursor{display:none}
-  }
-  </style>
-  <section id="demo3d" class="section dark" data-screen-label="Interactive demo">
-    <div class="wrap">
-      <div class="d3-intro reveal">
-        <div class="section-tag"><span class="idx">05</span> <span class="bar"></span> <span>Watch it work</span></div>
-        <h2 class="big balance">From stutter to <span class="x">silk.</span></h2>
-        <p class="lede pretty">Install, flip the tweaks, watch the frames pour in. Toggle <span style="color:var(--violet-glow)">OPTIMIZE</span> below — or hit any switch yourself — and see the same machine wake up in real time.</p>
-        <div class="d3-chips">
-          <div class="d3-chip"><span class="i">01</span> Download</div>
-          <div class="d3-chip"><span class="i">02</span>Auto-elevate</div>
-          <div class="d3-chip"><span class="i">03</span>Apply tweaks</div>
-          <div class="d3-chip"><span class="i">04</span>Game on</div>
-        </div>
-      </div>
-
-      <div class="d3-stage reveal">
-        <div class="d3-floor"></div>
-
-        <div class="d3-monitor">
-          <div class="d3-bezel">
-            <div class="d3-screen">
-              <canvas class="d3-game"></canvas>
-              <div class="d3-scan"></div>
-              <div class="d3-vig"></div>
-              <div class="d3-glare"></div>
-              <div class="d3-hud">
-                <div class="d3-fps"><span class="n">118</span><span class="u">FPS</span></div>
-                <div class="d3-graph"></div>
-                <div class="d3-ft">8.5 ms / frame</div>
-              </div>
-            </div>
-          </div>
-          <div class="d3-stand"></div>
-        </div>
-
-        <div class="d3-panel">
-          <div class="d3-panel-head"><span class="t">VOIDTUNE · Tweaks</span><span class="d"></span></div>
-          <div class="d3-row"><span class="lbl">Telemetry Excision</span><span class="d3-sw"></span></div>
-          <div class="d3-row"><span class="lbl">Latency Mode</span><span class="d3-sw"></span></div>
-          <div class="d3-row"><span class="lbl">Service Diet</span><span class="d3-sw"></span></div>
-          <div class="d3-row"><span class="lbl">GPU Priority</span><span class="d3-sw"></span></div>
-          <div class="d3-row"><span class="lbl">Ultimate Performance</span><span class="d3-sw"></span></div>
-        </div>
-
-        <svg class="d3-cursor" viewBox="0 0 24 24" fill="#f2f4f8" stroke="#0c0c0c" stroke-width="1.2"><path d="M5 3l15 9-6 1.5 3.5 6.5-2.5 1.2L11 14l-4 4z"/></svg>
-      </div>
-
-      <div class="d3-controls reveal">
-        <div class="d3-master" role="button" tabindex="0" aria-label="Toggle optimization">
-          <span class="d3-master-label">Optimize</span>
-          <span class="big-sw"></span>
-        </div>
-        <button class="d3-replay" type="button">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12a9 9 0 1 0 3-6.7M3 4v5h5"/></svg>
-          Replay
-        </button>
-      </div>
-    </div>
-  </section>
-
   <!-- DOWNLOAD CTA -->
   <section id="download" class="section cta">
     <div class="layer aurora" style="opacity:.9" data-parallax="0.03"></div>
@@ -879,11 +725,11 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
     <div class="wrap" style="position:relative">
       <div class="cta-grid">
         <div class="cta-copy">
-          <div class="reveal cta-tag"><div class="section-tag"><span class="idx">06</span> <span class="bar"></span> <span>Acquire</span></div></div>
+          <div class="reveal cta-tag"><div class="section-tag"><span class="idx">05</span> <span class="bar"></span> <span>Acquire</span></div></div>
           <h2 class="balance reveal"><span class="text-gradient">Enter</span> <span class="italic">the void.</span></h2>
           <p class="pretty reveal">Self-contained — no .NET or runtime to install. Open source under GPL-3. Run the MSI for a clean install with Start Menu + Desktop shortcuts and built-in auto-update, or grab the <a data-latest="voidtune" data-latest-asset="portable" href="https://github.com/otzpt/VOIDTUNE/releases/download/v0.8.17/VOIDTUNE-0.8.17-portable-win-x64.zip" style="color:var(--violet-glow)">portable .zip</a>, extract it and run <span class="mono" style="color:var(--violet-glow)">VOIDTUNE.exe</span> as administrator — that's it.</p>
           <div class="btns reveal">
-            <a href="https://github.com/otzpt/VOIDTUNE/releases/download/v0.8.17/VOIDTUNE-0.8.17-Setup.msi" class="btn btn-violet" data-magnetic="0.22" data-latest="voidtune"><span>Download installer</span><span class="mono" style="font-size:12px;opacity:.7" data-latest="voidtune" data-latest-tpl="{kind} · {size}">Installer</span></a>
+            <a href="https://github.com/otzpt/VOIDTUNE/releases/download/v0.8.17/VOIDTUNE-0.8.17-Setup.msi" class="btn btn-violet" data-latest="voidtune"><span>Download installer</span><span class="mono" style="font-size:12px;opacity:.7" data-latest="voidtune" data-latest-tpl="{kind} · {size}">Installer</span></a>
             <a href="https://github.com/otzpt/VOIDTUNE/releases/latest" class="btn btn-ghost">
               <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.3-1.7-1.3-1.7-1.05-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.73 1.27 3.4.97.1-.76.41-1.27.74-1.56-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.51-1.47.11-3.06 0 0 .97-.31 3.19 1.18a11.1 11.1 0 0 1 5.81 0c2.21-1.49 3.19-1.18 3.19-1.18.62 1.59.23 2.77.11 3.06.74.81 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.25 5.68.42.36.79 1.07.79 2.17v3.22c0 .31.21.67.8.56C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"/></svg>
               View release on GitHub
@@ -1026,7 +872,7 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
     <div class="wrap">
       <div class="head-grid" style="margin-bottom:4rem">
         <div class="reveal" style="grid-column:span 5;display:flex;flex-direction:column;gap:1.5rem">
-          <div class="section-tag"><span class="idx">07</span> <span class="bar"></span> <span>Support</span></div>
+          <div class="section-tag"><span class="idx">06</span> <span class="bar"></span> <span>Support</span></div>
           <h2 class="big balance">Stuck? <span class="x">Ask.</span></h2>
         </div>
         <div class="reveal" style="grid-column:7 / span 6">
@@ -1096,7 +942,6 @@ footer.site{position:relative;border-top:1px solid var(--border);background:var(
 <script src="/assets/vt.js" defer></script>
 <script src="/assets/tweaks.js" defer></script>
 <script src="/assets/detail.js" defer></script>
-<script src="/assets/tutorial.js" defer></script>
 <script src="/assets/explorer.js" defer></script>
 
 </body>

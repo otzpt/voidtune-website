@@ -170,11 +170,6 @@ footer.foot{padding:80px clamp(20px,6vw,80px) 40px;border-top:1px solid var(--li
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .reveal.in{opacity:1;transform:translateY(0)}
 
-/* ── Watermark ── */
-.watermark{position:absolute;font-family:var(--display);font-style:italic;font-weight:300;color:transparent;
-  -webkit-text-stroke:1px color-mix(in oklab,var(--ink) 8%, transparent);
-  pointer-events:none;user-select:none;line-height:.85;letter-spacing:-.03em}
-
 :root{
   --accent:#7dd3fc;
   --accent-2:#bae6fd;
@@ -200,14 +195,12 @@ footer.foot{padding:80px clamp(20px,6vw,80px) 40px;border-top:1px solid var(--li
 </nav>
 
 <section class="hero">
-  <canvas class="vt-hero-canvas" data-hero-canvas data-accent="#7dd3fc"></canvas>
-  <div class="watermark" style="top:55%;left:50%;transform:translate(-50%,-50%);font-size:clamp(14rem,32vw,34rem)">C</div>
   <div class="hero-grid reveal in">
     <div><span class="pill"><span class="dot"></span>Native C · Shipped</span></div>
     <h1 class="display">Pure. <em>Native</em>.<br>One click. Done.</h1>
     <p class="lede">VOIDTUNE One-Click is the tiny automatic edition — a native C rewrite of the core optimizer. Hit "Optimize Now" and it applies every SAFE tweak in one pass. No install, no runtime, no PowerShell, no .NET.</p>
     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
-      <a data-latest="one-click" href="https://github.com/otzpt/Voidtune-one-click/releases" class="btn btn-arrow" data-magnetic="0.2" target="_blank" rel="noopener">Download</a>
+      <a data-latest="one-click" href="https://github.com/otzpt/Voidtune-one-click/releases" class="btn btn-arrow" target="_blank" rel="noopener">Download</a>
       <a href="#roadmap" class="btn btn-ghost btn-arrow">View roadmap</a>
     </div>
     <div class="hero-meta">
@@ -233,12 +226,12 @@ footer.foot{padding:80px clamp(20px,6vw,80px) 40px;border-top:1px solid var(--li
 
 <div class="rule"></div>
 
-<section id="code" class="section">
-  <div class="section-head reveal">
-    <div class="meta"><span class="label">01 / Under the hood</span><span class="eyebrow">— Code preview</span></div>
+<section id="code" class="section" style="text-align:center">
+  <div class="section-head reveal" style="grid-template-columns:1fr;justify-items:center;text-align:center">
+    <div class="meta" style="align-items:center"><span class="label">01 / Under the hood</span><span class="eyebrow">— Code preview</span></div>
     <h2 class="display">A <em>tweak</em>, in C.</h2>
   </div>
-  <div class="glass reveal" style="padding:32px 36px;border-left:2px solid var(--accent);font-family:var(--mono);font-size:12.5px;line-height:1.95;color:#8a96ad;max-width:900px;overflow-x:auto">
+  <div class="glass reveal" style="padding:32px 36px;border-left:2px solid var(--accent);font-family:var(--mono);font-size:12.5px;line-height:1.95;color:#8a96ad;max-width:900px;width:fit-content;margin:0 auto;overflow-x:auto;text-align:left">
     <div style="color:#3a4a5a">// voidtune-c — registry tweak engine (simplified)</div>
     <div><span style="color:var(--accent)">BOOL</span> <span style="color:var(--accent-2)">ApplyTweak</span>(<span style="color:var(--accent)">const</span> Tweak *t) {</div>
     <div>&nbsp;&nbsp;<span style="color:var(--accent)">HKEY</span> hk;</div>
@@ -253,22 +246,6 @@ footer.foot{padding:80px clamp(20px,6vw,80px) 40px;border-top:1px solid var(--li
     <div style="color:#3a4a5a">// zero external dependencies. direct Win32.</div>
   </div>
 
-  <div class="term reveal" id="term-cedition" data-term data-prompt="PS C:\\voidtune-c&gt;" style="margin-top:28px">
-    <div class="term-bar"><span class="dots"><i></i><i></i><i></i></span><span class="ttl"><b>One-Click</b> — build · gcc (MinGW-w64) · shipped</span></div>
-    <div class="term-screen"></div>
-    <script type="application/json" class="term-script">[
-      {"p":"gcc -O2 -municode -o voidtune.exe src\\*.c -lkernel32 -ladvapi32"},
-      {"bar":"  compiling","ms":1500,"done":"  linked voidtune.exe \u00b7 ~170 KB \u00b7 0 deps"},
-      {"p":"voidtune.exe --selftest"},
-      {"o":"  [ok] registry engine","c":"ok","w":280},
-      {"o":"  [ok] win32 bindings","c":"ok","w":280},
-      {"o":"  [ok] service control","c":"ok","w":280},
-      {"o":"  [ok] power plan tuning","c":"ok","w":280},
-      {"s":"// Optimize Now \u2014 applies every SAFE tweak in one pass.","c":"ok"},
-      {"w":1100},
-      {"clr":1}
-    ]</script>
-  </div>
 </section>
 
 <div class="rule"></div>
@@ -475,6 +452,5 @@ footer.foot{padding:80px clamp(20px,6vw,80px) 40px;border-top:1px solid var(--li
 
 <script src="../assets/latest.js?v=3" defer></script>
 <script src="../assets/vt.js" defer></script>
-<script src="../assets/terminal.js" defer></script>
 </body>
 </html>
