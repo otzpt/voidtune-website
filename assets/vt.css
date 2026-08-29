@@ -12,16 +12,7 @@ html{ scroll-behavior:smooth; }
 *:focus-visible{ outline:2px solid var(--vt-accent); outline-offset:3px; border-radius:3px; }
 
 /* ---------- scroll progress ---------- */
-#vt-progress{
-  position:fixed; top:0; left:0; right:0; height:2px; z-index:120;
-  transform:scaleX(0); transform-origin:0 50%;
-  background:linear-gradient(90deg,
-    color-mix(in oklab, var(--vt-accent) 30%, transparent),
-    var(--vt-accent),
-    color-mix(in oklab, var(--vt-accent) 55%, white 25%));
-  box-shadow:0 0 18px color-mix(in oklab, var(--vt-accent) 60%, transparent);
-  will-change:transform; pointer-events:none;
-}
+#vt-progress{ display:none; }
 
 /* ---------- interactive hero canvas ---------- */
 .vt-hero-canvas{
@@ -33,16 +24,8 @@ html{ scroll-behavior:smooth; }
 /* ensure hero content floats above the canvas */
 .hero > .wrap, .hero > .hero-grid, .hero-grid{ position:relative; z-index:3; }
 
-/* ---------- cursor spotlight (cards/panels) ---------- */
+/* ---------- hover state (cards/panels) ---------- */
 [data-spotlight]{ position:relative; isolation:isolate; }
-[data-spotlight]::before{
-  content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
-  border-radius:inherit; opacity:0; transition:opacity .4s var(--ease,ease);
-  background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),
-    color-mix(in oklab, var(--vt-accent) 16%, transparent), transparent 60%);
-}
-[data-spotlight]:hover::before{ opacity:1; }
-[data-spotlight] > *{ position:relative; z-index:1; }
 
 /* edge-light on hover for the grid cells */
 [data-edge]{ position:relative; }
@@ -52,20 +35,11 @@ html{ scroll-behavior:smooth; }
 }
 [data-edge]:hover::after{ box-shadow:inset 0 0 0 1px color-mix(in oklab, var(--vt-accent) 45%, transparent); }
 
-/* ---------- premium button sheen ---------- */
 [data-magnetic]{ transition:transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, filter .35s ease; will-change:transform; }
-.btn-violet, .btn-primary{ position:relative; overflow:hidden; }
-.btn-violet::after, .btn-primary::after{
-  content:""; position:absolute; top:0; left:-130%; width:60%; height:100%;
-  background:linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent);
-  transform:skewX(-18deg); transition:none; pointer-events:none;
-}
-.btn-violet:hover::after, .btn-primary:hover::after{ animation:vt-sheen .9s cubic-bezier(.2,.7,.2,1); }
-@keyframes vt-sheen{ to{ left:130%; } }
 
 /* ---------- depth on card grids ---------- */
 [data-tilt]{ will-change:transform; transition:transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease; }
-[data-tilt]:hover{ box-shadow:0 30px 80px -40px color-mix(in oklab, var(--vt-accent) 50%, transparent); }
+[data-tilt]:hover{ box-shadow:0 20px 50px -30px rgba(0,0,0,.5); }
 
 /* ---------- refined reveal: stagger + slight scale ---------- */
 .reveal{ will-change:opacity, transform; }
