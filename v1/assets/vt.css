@@ -1,0 +1,93 @@
+/* ============================================================
+   VOIDTUNE — elevation layer
+   Loaded AFTER each page's inline <style>. Adds depth, refined
+   micro-interactions and rhythm without touching the base look.
+   ============================================================ */
+
+/* normalize accent var across both CSS systems so vt.js + effects
+   resolve a colour on every page */
+:root{ --vt-accent: var(--accent, var(--violet, var(--primary, #a78bfa))); }
+
+html{ scroll-behavior:smooth; }
+*:focus-visible{ outline:2px solid var(--vt-accent); outline-offset:3px; border-radius:3px; }
+
+/* ---------- scroll progress ---------- */
+#vt-progress{ display:none; }
+
+/* ---------- interactive hero canvas ---------- */
+.vt-hero-canvas{
+  position:absolute; inset:0; width:100%; height:100%;
+  z-index:1; pointer-events:none; display:block;
+  -webkit-mask-image:radial-gradient(ellipse 78% 78% at 50% 46%, #000 55%, transparent 100%);
+          mask-image:radial-gradient(ellipse 78% 78% at 50% 46%, #000 55%, transparent 100%);
+}
+/* ensure hero content floats above the canvas */
+.hero > .wrap, .hero > .hero-grid, .hero-grid{ position:relative; z-index:3; }
+
+/* ---------- hover state (cards/panels) ---------- */
+[data-spotlight]{ position:relative; isolation:isolate; }
+
+/* edge-light on hover for the grid cells */
+[data-edge]{ position:relative; }
+[data-edge]::after{
+  content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+  box-shadow:inset 0 0 0 1px transparent; transition:box-shadow .35s var(--ease,ease);
+}
+[data-edge]:hover::after{ box-shadow:inset 0 0 0 1px color-mix(in oklab, var(--vt-accent) 45%, transparent); }
+
+[data-magnetic]{ transition:transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .35s ease, filter .35s ease; will-change:transform; }
+
+/* ---------- depth on card grids ---------- */
+[data-tilt]{ will-change:transform; transition:transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease; }
+[data-tilt]:hover{ box-shadow:0 20px 50px -30px rgba(0,0,0,.5); }
+
+/* ---------- refined reveal: stagger + slight scale ---------- */
+.reveal{ will-change:opacity, transform; }
+@media (prefers-reduced-motion:no-preference){
+  .reveal{ transition:opacity .8s var(--ease,cubic-bezier(.2,.6,.2,1)), transform .8s var(--ease,cubic-bezier(.2,.6,.2,1)); }
+}
+
+/* ---------- typography polish (applies to both systems) ---------- */
+body{ font-kerning:normal; }
+h1,h2,h3,.display,.big,.mani-head{ text-wrap:balance; }
+p{ text-wrap:pretty; }
+
+/* subtle gradient-text richness on hero headline numerals/marks */
+.text-gradient, .display em, .num{ -webkit-text-stroke:0; }
+
+/* ---------- reduced motion: kill all the heavy stuff ---------- */
+@media (prefers-reduced-motion:reduce){
+  #vt-progress{ display:none; }
+  [data-tilt], [data-magnetic]{ transform:none !important; }
+  .btn-violet:hover::after, .btn-primary:hover::after{ animation:none; }
+}
+
+/* ---------- animated terminal (shared by subpages) ---------- */
+.term{ position:relative; border-radius:13px; overflow:hidden; max-width:920px; width:100%;
+  background:#08080d; border:1px solid var(--line-strong, rgba(244,241,234,.16));
+  box-shadow:0 60px 130px -45px rgba(0,0,0,.92), 0 0 0 1px color-mix(in oklab, var(--accent) 8%, transparent);
+  font-family:var(--mono, ui-monospace, monospace); }
+.term-bar{ display:flex; align-items:center; gap:12px; padding:11px 15px;
+  background:rgba(255,255,255,.025); border-bottom:1px solid rgba(244,241,234,.06); }
+.term-bar .dots{ display:flex; gap:7px; }
+.term-bar .dots i{ width:11px; height:11px; border-radius:50%; background:#3a3744; }
+.term-bar .dots i:nth-child(1){ background:#ff5f57; }
+.term-bar .dots i:nth-child(2){ background:#febc2e; }
+.term-bar .dots i:nth-child(3){ background:#28c840; }
+.term-bar .ttl{ font-size:10.5px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-dim, #9a978f); }
+.term-bar .ttl b{ color:var(--accent); font-weight:500; }
+.term-screen{ height:316px; overflow:hidden; padding:17px 19px; font-size:12.5px; line-height:1.75;
+  color:var(--ink, #f4f1ea); position:relative; }
+.term-screen .ln{ white-space:pre-wrap; word-break:break-word; }
+.term-screen .pr{ color:var(--accent); }
+.term-screen .dim{ color:var(--ink-faint, #5e5b54); }
+.term-screen .ok{ color:var(--accent); }
+.term-screen .warn{ color:#fbbf24; }
+.term-screen .ai{ color:var(--accent-2, #c4b5fd); border-left:2px solid color-mix(in oklab, var(--accent) 45%, transparent); padding-left:12px; margin:3px 0; }
+.term-screen .cur{ display:inline-block; width:8px; height:14px; background:var(--accent); transform:translateY(2px); margin-left:1px; animation:term-blink 1s step-end infinite; }
+@keyframes term-blink{ 50%{ opacity:0; } }
+.term-prog{ display:inline-block; vertical-align:middle; width:150px; height:7px; border-radius:99px;
+  background:rgba(255,255,255,.06); overflow:hidden; }
+.term-prog i{ display:block; height:100%; width:0; border-radius:99px;
+  background:linear-gradient(90deg, var(--accent), var(--accent-2, #fff)); }
+.term-screen .pct{ color:var(--ink-dim, #9a978f); font-size:11px; }
