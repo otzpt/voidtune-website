@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VOIDTUNE: Windows, Uncompromised</title>
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="stylesheet" href="_ds/classical-588439a1-e641-4d3d-afa7-43aa52a6e688/styles.css">
+<script src="image-slot.js"></script>
+<style>
+  :root{
+    --color-bg: #0a0a0b;
+    --color-surface: #101012;
+    --color-text: var(--color-neutral-100);
+    --color-divider: color-mix(in srgb, var(--color-neutral-100) 14%, transparent);
+    --color-accent: var(--color-neutral-100);
+    --color-good: oklch(0.72 0.13 152);
+    --density: 1;
+  }
+  html[data-ground="light"]{
+    --color-bg: #f3f2f2; --color-surface: #eae9e9; --color-text: #201f1d;
+    --color-divider: color-mix(in srgb, #201f1d 16%, transparent);
+  }
+  html[data-ground="dark"][data-accent="mono"]{ --color-accent: var(--color-neutral-100); }
+  html[data-ground="dark"][data-accent="gold"]{ --color-accent: var(--color-accent-400); }
+  html[data-ground="dark"][data-accent="violet"]{ --color-accent: #be95ff; }
+  html[data-ground="light"][data-accent="mono"]{ --color-accent: var(--color-neutral-700); }
+  html[data-ground="light"][data-accent="gold"]{ --color-accent: var(--color-accent-700); }
+  html[data-ground="light"][data-accent="violet"]{ --color-accent: #8b5cf6; }
+  html[data-density="compact"]{ --density: .6; }
+  html[data-density="airy"]{ --density: 1.5; }
+  body{overflow-x:hidden;transition:background .3s,color .3s;position:relative;
+    background:
+      radial-gradient(ellipse 90% 60% at 50% -10%, color-mix(in srgb, var(--color-text) 7%, transparent), transparent 60%),
+      radial-gradient(ellipse 70% 50% at 100% 100%, color-mix(in srgb, var(--color-accent) 5%, transparent), transparent 65%),
+      var(--color-bg);
+  }
+  a{color:var(--color-text);text-decoration:underline;text-decoration-color:var(--color-divider)}
+  a:hover{color:var(--color-accent)}
+  .wrap{width:100%;margin-inline:0;padding-inline:calc(var(--space-8) * var(--density))}
+  @media(max-width:720px){.wrap{padding-inline:var(--space-4)}}
+
+  .topnav{position:sticky;top:0;z-index:20;background:color-mix(in srgb, var(--color-bg) 92%, transparent);
+    border-bottom:1px solid var(--color-divider);backdrop-filter:blur(6px)}
+  .topnav-inner{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);
+    padding-block:var(--space-3)}
+  .nav{display:grid !important;grid-template-columns:auto 1fr auto;align-items:center}
+  .nav .navlinks{justify-content:center;margin-left:0 !important}
+  .brand{display:flex;align-items:center;gap:var(--space-2);text-decoration:none;color:var(--color-text)}
+  .brand img{width:28px;height:28px;border-radius:var(--radius-sm)}
+  .brand span{font-family:var(--font-heading);font-weight:var(--font-heading-weight);font-size:19px;letter-spacing:-.01em}
+  .navlinks{display:none;align-items:center;gap:var(--space-6);font-size:14px}
+  @media(min-width:820px){.navlinks{display:flex}}
+  .navlinks a{color:var(--color-text);text-decoration:none;border-bottom:1px solid transparent}
+  .navlinks a:hover{color:var(--color-accent-700);border-color:var(--color-divider)}
+
+  .hero{padding-block:calc(var(--space-8) * var(--density)) calc(var(--space-8) * var(--density) * .6);display:grid;grid-template-columns:1fr;gap:calc(var(--space-8) * var(--density));align-items:center}
+  @media(min-width:900px){.hero{grid-template-columns:1.1fr .9fr}}
+  .hero-plate{border:6px solid var(--color-surface);outline:1px solid var(--color-divider);aspect-ratio:949/554;box-shadow:var(--shadow-lg);background:var(--color-surface)}
+  .kicker{font-family:var(--font-body);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--color-accent);margin-bottom:var(--space-3)}
+  .hero h1{font-family:var(--font-heading);font-weight:400;font-size:clamp(36px,5vw,60px);
+    line-height:1.08;letter-spacing:-.02em;max-width:17ch;margin-bottom:var(--space-4)}
+  .hero p.lede{font-family:var(--font-body);font-size:18px;line-height:1.6;max-width:42ch;
+    color:color-mix(in srgb, var(--color-text) 78%, transparent);margin-bottom:var(--space-6)}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center}
+
+  .cmd{margin-top:var(--space-8);border:1px solid var(--color-divider);border-radius:var(--radius-lg);
+    overflow:hidden}
+  .stat-card{border:1px solid var(--color-divider);border-radius:var(--radius-lg);padding:var(--space-6)}
+  .stat-card .row{display:flex;justify-content:space-between;align-items:baseline;padding-block:var(--space-3);
+    border-bottom:1px solid var(--color-divider)}
+  .stat-card .row:last-child{border-bottom:none}
+  .stat-card .row .k{font-family:var(--font-body);font-size:14px;color:color-mix(in srgb, var(--color-text) 70%, transparent)}
+  .stat-card .row .v{font-family:var(--font-heading);font-weight:600;font-size:22px}
+  .stat-card .row .v .before{font-size:14px;text-decoration:line-through;font-weight:400;
+    color:color-mix(in srgb, var(--color-text) 45%, transparent);margin-right:var(--space-2)}
+  .stat-card .row .v .after{color:var(--color-accent)}
+  .cmd-bar{display:flex;align-items:center;gap:var(--space-2);padding:var(--space-2) var(--space-3);
+    border-bottom:1px solid var(--color-divider);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:color-mix(in srgb, var(--color-text) 55%, transparent)}
+  .cmd-body{padding:var(--space-4);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:14px;
+    line-height:1.8;color:var(--color-text)}
+  .cmd-body .p{color:var(--color-accent)}
+  .cmd-body .c{color:color-mix(in srgb, var(--color-text) 50%, transparent)}
+
+  .section{padding-block:calc(var(--space-8) * var(--density))}
+  .section-head{display:flex;flex-direction:column;gap:var(--space-2);margin-bottom:var(--space-6);max-width:56ch}
+  .section-num{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:12px;
+    letter-spacing:.1em;color:color-mix(in srgb, var(--color-text) 50%, transparent)}
+  .section h2{font-family:var(--font-heading);font-weight:400;font-size:clamp(28px,3.6vw,40px);letter-spacing:-.015em}
+  .section h2 em{color:var(--color-accent);font-style:italic}
+  .section p.sub{font-family:var(--font-body);color:color-mix(in srgb, var(--color-text) 70%, transparent);font-size:15px}
+
+  .grid{display:grid;gap:calc(var(--space-4) * var(--density));grid-template-columns:1fr}
+  @media(min-width:720px){.grid.c3{grid-template-columns:repeat(3,1fr)}}
+  @media(min-width:720px){.grid.c2{grid-template-columns:repeat(2,1fr)}}
+
+  .card-kicker{color:var(--color-accent)}
+  .card{padding:calc(var(--space-4) * var(--density));background:var(--color-bg)}
+
+  .table .num{text-align:right;font-variant-numeric:tabular-nums}
+  .table .after{color:var(--color-accent);font-weight:600}
+
+  .dl-panel{border:1px solid var(--color-divider);border-radius:var(--radius-lg);padding:var(--space-6);
+    display:grid;gap:var(--space-4);grid-template-columns:1fr;align-items:center}
+  @media(min-width:720px){.dl-panel{grid-template-columns:1.3fr 1fr}}
+  .spec-row{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--space-3)}
+  .spec-row div{border-top:1px solid var(--color-divider);padding-top:var(--space-2)}
+  .spec-row .k{font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:color-mix(in srgb, var(--color-text) 55%, transparent)}
+  .spec-row .v{font-family:var(--font-heading);font-weight:600;font-size:18px;margin-top:2px}
+
+  footer{border-top:1px solid var(--color-divider);padding-block:var(--space-8)}
+  .foot-grid{display:grid;gap:var(--space-6);grid-template-columns:2fr 1fr 1fr 1fr}
+  @media(max-width:720px){.foot-grid{grid-template-columns:1fr 1fr}}
+  .foot-grid h6{margin-bottom:var(--space-2);color:color-mix(in srgb, var(--color-text) 55%, transparent)}
+  .foot-grid a{display:block;color:var(--color-text);text-decoration:none;font-size:13px;margin-bottom:var(--space-1)}
+  .foot-grid a:hover{color:var(--color-accent)}
+  .foot-bottom{margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--color-divider);
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:var(--space-2);font-size:12px;
+    color:color-mix(in srgb, var(--color-text) 55%, transparent)}
+
+  .tweaks-fab{position:fixed;right:var(--space-4);bottom:var(--space-4);z-index:100;font-family:var(--font-body);
+    font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+  .tweaks-panel{position:fixed;right:var(--space-4);bottom:calc(var(--space-4) + 44px);z-index:100;width:230px;
+    border:1px solid var(--color-divider);border-radius:var(--radius-lg);background:var(--color-bg);
+    padding:var(--space-4);display:none;flex-direction:column;gap:var(--space-3)}
+  .tweaks-panel.open{display:flex}
+  .tweaks-panel h6{color:color-mix(in srgb, var(--color-text) 55%, transparent);margin-bottom:2px}
+  .tweaks-seg{display:flex;gap:4px}
+  .tweaks-seg button{flex:1;font-family:var(--font-body);font-size:12px;padding:6px 8px;cursor:pointer;
+    border:1px solid var(--color-divider);background:transparent;color:var(--color-text);border-radius:var(--radius-sm)}
+  .tweaks-seg button.on{border-color:var(--color-accent);color:var(--color-accent)}
+
+  @media(prefers-reduced-motion:no-preference){
+    .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s cubic-bezier(.2,.6,.2,1),transform .6s cubic-bezier(.2,.6,.2,1)}
+    .reveal.in{opacity:1;transform:none}
+  }
+  .card{transition:transform .3s cubic-bezier(.2,.6,.2,1),border-color .3s,background .3s,box-shadow .3s;box-shadow:var(--shadow-sm)}
+  .card:hover{transform:translateY(-3px);border-color:var(--color-accent);box-shadow:var(--shadow-md)}
+  .grid.c3 .card:nth-child(even){background:color-mix(in srgb, var(--color-accent) 5%, var(--color-bg))}
+  .btn{transition:transform .2s cubic-bezier(.2,.7,.2,1)}
+  .btn:hover{transform:translateY(-1px)}
+  .btn:active{transform:translateY(0)}
+  .kicker-rule{display:inline-block;width:28px;height:1px;background:var(--color-accent);margin-right:var(--space-2);
+    vertical-align:middle;transform-origin:0 50%}
+  .btn{padding:12px 22px !important;font-size:14.5px !important}
+  .btn-primary{box-shadow:var(--shadow-sm)}
+  .stat-card, .dl-panel{box-shadow:var(--shadow-sm)}
+  @media(prefers-reduced-motion:no-preference){
+    .kicker-rule{animation:vt-grow .8s cubic-bezier(.2,.7,.2,1) .1s both}
+  }
+
+  .status-dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:6px}
+  .status-stable{color:var(--color-good);border-color:color-mix(in srgb, var(--color-good) 45%, transparent) !important}
+  .status-stable .status-dot{background:var(--color-good);box-shadow:0 0 8px var(--color-good)}
+  .status-beta{color:var(--color-accent);border-color:color-mix(in srgb, var(--color-accent) 45%, transparent) !important}
+  .status-beta .status-dot{background:var(--color-accent);box-shadow:0 0 8px var(--color-accent)}
+  .glass{background:linear-gradient(180deg, color-mix(in srgb, var(--color-text) 4%, transparent), color-mix(in srgb, var(--color-text) 1%, transparent));
+    border:1px solid var(--color-divider);border-left:2px solid var(--color-accent);backdrop-filter:blur(14px) saturate(120%);
+    border-radius:var(--radius-md);padding:var(--space-6)}
+  .ticker{overflow:hidden;border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider);
+    padding:10px 0}
+  .ticker-track{display:flex;gap:36px;width:max-content;animation:vt-ticker 30s linear infinite}
+  .ticker-track span{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;
+    letter-spacing:.2em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 55%, transparent);
+    white-space:nowrap;display:flex;align-items:center;gap:36px}
+  .ticker-track span::after{content:"\25C6";color:var(--color-accent);opacity:.6}
+  @keyframes vt-ticker{to{transform:translateX(-50%)}}
+  .pulse-pill{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border:1px solid var(--color-divider);
+    border-radius:999px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:11px;
+    letter-spacing:.15em;text-transform:uppercase;color:color-mix(in srgb, var(--color-text) 70%, transparent);
+    margin-bottom:var(--space-3)}
+  .pulse-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--color-accent);box-shadow:0 0 10px var(--color-accent)}
+  @media(prefers-reduced-motion:no-preference){
+    .pulse-pill .dot{animation:vt-pulse 2.2s ease-in-out infinite}
+  }
+  @keyframes vt-pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <nav class="wrap nav" style="border-bottom:none;padding-block:var(--space-3)">
+    <a href="#" class="brand nav-brand" style="margin-right:0"><img src="icon.png" alt=""><span>VOIDTUNE</span></a>
+    <div class="navlinks">
+      <a href="#manifesto">Manifesto</a>
+      <a href="#results">Results</a>
+      <a href="#system">System</a>
+      <a href="#download">Download</a>
+      <a href="../v1/c-edition/">One-Click</a>
+      <a href="https://v-agent-ide.vercel.app/">V-Agent</a>
+    </div>
+    <a href="#download" class="btn btn-primary">Download</a>
+  </nav>
+</div>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div>
+    <div class="kicker"><span class="kicker-rule"></span>Windows optimization, without the bloat</div>
+    <h1>Silence the <em style="font-style:italic;color:var(--color-accent)">noise</em> of Windows.</h1>
+    <p class="lede"><strong style="color:var(--color-accent);font-weight:600">160</strong> reversible tweaks, one open-source tool, <strong style="color:var(--color-accent);font-weight:600">zero telemetry</strong>. Built for people who tune their own hardware and don't want a vendor doing it for them.</p>
+    <div class="hero-actions">
+      <a href="#download" class="btn btn-primary">Get VOIDTUNE</a>
+      <a href="#manifesto" class="btn btn-secondary">Read the manifesto</a>
+    </div>
+
+    </div>
+
+    <div class="hero-plate">
+      <image-slot id="hero-shot" shape="rect" fit="contain" src="uploads/pasted-1788021323933-0.png" placeholder="VOIDTUNE dashboard screenshot" style="clip-path:inset(5px 3px)"></image-slot>
+    </div>
+  </section>
+
+  <section id="manifesto" class="section">
+    <hr class="hr" style="margin-top:0">
+    <div class="section-head reveal">
+      <h2>Your machine, <em>your rules</em>.</h2>
+      <p class="sub">Modern Windows ships with background services that phone home and quietly spend your CPU. VOIDTUNE is a documented, reversible set of edits that hands the machine back to you.</p>
+    </div>
+    <div class="grid c2 reveal">
+      <div class="card">
+        <span class="card-kicker">No telemetry</span>
+        <div class="card-title">Nothing leaves your PC</div>
+        <div class="card-body">The only network call is an optional check for a newer release. You can turn that off too.</div>
+      </div>
+      <div class="card">
+        <span class="card-kicker">Fully reversible</span>
+        <div class="card-title">Every tweak, undoable</div>
+        <div class="card-body">A registry snapshot is written before anything changes. Roll back to stock in one click, any time.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="results" class="section">
+    <hr class="hr" style="margin-top:0">
+    <div class="section-head reveal">
+      <h2>Measured, <em>not promised</em>.</h2>
+      <p class="sub">Ryzen 7 7800X3D · 32GB DDR5 · RTX 4070 · stock Windows 11 23H2.</p>
+    </div>
+    <table class="table reveal">
+      <tr><th>Metric</th><th class="num">Stock</th><th class="num">VOIDTUNE</th></tr>
+      <tr><td>Idle CPU</td><td class="num">4%</td><td class="num after">0.9%</td></tr>
+      <tr><td>Input latency</td><td class="num">11.2 ms</td><td class="num after">4.1 ms</td></tr>
+      <tr><td>Boot time</td><td class="num">22 s</td><td class="num after">11 s</td></tr>
+      <tr><td>Background services</td><td class="num">188</td><td class="num after">102</td></tr>
+    </table>
+  </section>
+
+  <section id="system" class="section">
+    <hr class="hr" style="margin-top:0">
+    <div class="section-head reveal">
+      <h2>Six modules. <em>Pick what you need.</em></h2>
+      <p class="sub">Each module is independent and toggleable, with a plain explanation of what it touches and how to undo it.</p>
+    </div>
+    <div class="grid c3 reveal">
+      <div class="card"><span class="card-kicker">M01</span><div class="card-title">Telemetry Excision</div><div class="card-body">Disables DiagTrack and 34 related endpoints at the firewall.</div><div style="display:flex;gap:6px;margin-top:4px"><span class="tag tag-outline status-stable"><span class="status-dot"></span>Stable</span><span class="tag tag-outline">Privacy</span></div></div>
+      <div class="card"><span class="card-kicker">M02</span><div class="card-title">Scheduler Surgery</div><div class="card-body">Strips 60+ junk scheduled tasks without breaking updates.</div><div style="display:flex;gap:6px;margin-top:4px"><span class="tag tag-outline status-stable"><span class="status-dot"></span>Stable</span><span class="tag tag-outline">Performance</span></div></div>
+      <div class="card"><span class="card-kicker">M03</span><div class="card-title">Latency Mode</div><div class="card-body">MSI-mode GPU/NIC interrupts, HPET off. ~9ms input gain measured.</div><div style="display:flex;gap:6px;margin-top:4px"><span class="tag tag-outline status-beta"><span class="status-dot"></span>Beta</span><span class="tag tag-outline">Gaming</span></div></div>
+      <div class="card"><span class="card-kicker">M04</span><div class="card-title">Service Diet</div><div class="card-body">Audits all 188 stock services, disables 126 with full revert manifests.</div><div style="display:flex;gap:6px;margin-top:4px"><span class="tag tag-outline status-stable"><span class="status-dot"></span>Stable</span><span class="tag tag-outline">Services</span></div></div>
+      <div class="card"><span class="card-kicker">M05</span><div class="card-title">Defender Tuning</div><div class="card-body">Keeps real-time protection on, drops cloud sample submission.</div><div style="display:flex;gap:6px;margin-top:4px"><span class="tag tag-outline status-stable"><span class="status-dot"></span>Stable</span><span class="tag tag-outline">Security</span></div></div>
+      <div class="card"><span class="card-kicker">M06</span><div class="card-title">Network Refit</div><div class="card-body">TCP autotuning and DNS-over-HTTPS to Cloudflare or Quad9.</div><div style="display:flex;gap:6px;margin-top:4px"><span class="tag tag-outline status-beta"><span class="status-dot"></span>Beta</span><span class="tag tag-outline">Network</span></div></div>
+    </div>
+  </section>
+
+  <section id="download" class="section">
+    <hr class="hr" style="margin-top:0">
+    <div class="section-head reveal">
+      <h2>Enter the <em>void</em>.</h2>
+      <p class="sub">Self-contained. No .NET, no runtime. GPL-3, open source.</p>
+    </div>
+    <div class="dl-panel reveal">
+      <div>
+        <p style="font-family:var(--font-body);font-size:15px;margin-bottom:var(--space-4)">
+          Run the MSI for a clean install with auto-update, or grab the portable .zip and run
+          <span style="font-family:'JetBrains Mono',monospace">VOIDTUNE.exe</span> as administrator.
+        </p>
+        <div class="hero-actions">
+          <a href="https://github.com/otzpt/VOIDTUNE/releases/latest" class="btn btn-primary">Download installer</a>
+          <a href="https://github.com/otzpt/VOIDTUNE" class="btn btn-secondary">View on GitHub</a>
+        </div>
+      </div>
+      <div class="spec-row">
+        <div><div class="k">License</div><div class="v">GPL-3</div></div>
+        <div><div class="k">Platform</div><div class="v">Win 10/11</div></div>
+        <div><div class="k">Arch</div><div class="v">x64</div></div>
+        <div><div class="k">Size</div><div class="v">~64 MB</div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="glass reveal" style="max-width:640px;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 90% at 100% 0%, color-mix(in srgb, var(--color-accent) 10%, transparent), transparent 70%);pointer-events:none"></div>
+    <div style="position:relative;display:flex;flex-direction:column;gap:var(--space-4)">
+      <div style="display:flex;align-items:center;gap:var(--space-4)">
+        <img src="uploads/screenshot-2026-08-08_20-35-04.png" alt="@otzpt" style="width:56px;height:56px;border-radius:50%;
+          border:1px solid var(--color-divider);object-fit:cover;flex-shrink:0">
+        <div>
+          <div class="kicker" style="margin-bottom:2px">Built by</div>
+          <h3 style="font-family:var(--font-heading);font-size:26px">@otzpt</h3>
+        </div>
+      </div>
+      <p style="font-family:var(--font-body);font-size:14px;line-height:1.7;color:color-mix(in srgb, var(--color-text) 72%, transparent)">Voidtune project lead &middot; C edition &middot; PowerShell edition. Every module documented, every tweak reversible.</p>
+      <div style="display:flex;gap:var(--space-3);flex-wrap:wrap">
+        <a href="https://x.com/otzpt_dev" class="btn btn-secondary" target="_blank" rel="noopener">X / Twitter</a>
+        <a href="https://github.com/otzpt/VOIDTUNE" class="btn btn-secondary" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<footer class="wrap">
+  <div class="foot-grid">
+    <div>
+      <a href="#" class="brand"><img src="icon.png" alt=""><span>VOIDTUNE</span></a>
+      <p style="font-family:var(--font-body);font-size:13px;margin-top:var(--space-3);max-width:32ch;
+        color:color-mix(in srgb, var(--color-text) 65%, transparent)">
+        A precision optimization suite for Windows. Built by one engineer, audited by many.
+      </p>
+    </div>
+    <div><h6>Suite</h6><a href="#system">Modules</a><a href="#results">Benchmarks</a></div>
+    <div><h6>Ecosystem</h6><a href="https://v-agent-ide.vercel.app/">V-Agent</a><a href="#">One-Click</a></div>
+    <div><h6>Project</h6><a href="https://github.com/otzpt/VOIDTUNE">GitHub</a><a href="https://discord.gg/vAWqWD2e6R">Discord</a></div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 VOIDTUNE · GPL-3</span>
+    <span>Built by @otzpt</span>
+  </div>
+</footer>
+
+<button class="btn btn-secondary tweaks-fab" id="tweaksFab" onclick="document.getElementById('tweaksPanel').classList.toggle('open')">Tweaks</button>
+<div class="tweaks-panel" id="tweaksPanel">
+  <div>
+    <h6 style="font-size:11px;letter-spacing:.1em;text-transform:uppercase">Ground</h6>
+    <div class="tweaks-seg" data-tweak="ground">
+      <button data-value="dark">Void</button>
+      <button data-value="light">Parchment</button>
+    </div>
+  </div>
+  <div>
+    <h6 style="font-size:11px;letter-spacing:.1em;text-transform:uppercase">Accent voice</h6>
+    <div class="tweaks-seg" data-tweak="accent">
+      <button data-value="mono">Mono</button>
+      <button data-value="gold">Gold</button>
+      <button data-value="violet">Violet</button>
+    </div>
+  </div>
+  <div>
+    <h6 style="font-size:11px;letter-spacing:.1em;text-transform:uppercase">Density</h6>
+    <div class="tweaks-seg" data-tweak="density">
+      <button data-value="compact">Compact</button>
+      <button data-value="cozy">Cozy</button>
+      <button data-value="airy">Airy</button>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var html = document.documentElement;
+  var defaults = {ground:'dark', accent:'gold', density:'cozy'};
+  var state = JSON.parse(localStorage.getItem('vt-tweaks-v2') || 'null') || defaults;
+  function apply(){
+    html.setAttribute('data-ground', state.ground);
+    html.setAttribute('data-accent', state.accent);
+    html.setAttribute('data-density', state.density);
+    document.querySelectorAll('.tweaks-seg').forEach(function(seg){
+      var key = seg.dataset.tweak;
+      seg.querySelectorAll('button').forEach(function(btn){
+        btn.classList.toggle('on', btn.dataset.value === state[key]);
+      });
+    });
+  }
+  document.querySelectorAll('.tweaks-seg button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var key = btn.closest('.tweaks-seg').dataset.tweak;
+      state[key] = btn.dataset.value;
+      localStorage.setItem('vt-tweaks-v2', JSON.stringify(state));
+      apply();
+    });
+  });
+  apply();
+})();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.2.2/lib/anime.min.js"></script>
+<script>
+(function(){
+  var els = document.querySelectorAll('.reveal');
+  if (!els.length) return;
+  function revealCards(container){
+    var kids = container.querySelectorAll(':scope > .card, :scope .card');
+    if (kids.length && window.anime) {
+      anime({targets: kids, opacity:[0,1], translateY:[18,0], delay: anime.stagger(70), duration:520, easing:'easeOutCubic'});
+    }
+  }
+  function countUp(container){
+    if (!window.anime) return;
+    container.querySelectorAll('td.after').forEach(function(cell){
+      var txt = cell.textContent.trim();
+      var m = txt.match(/^([\d.]+)(.*)$/);
+      if (!m) return;
+      var target = parseFloat(m[1]), suffix = m[2];
+      var obj = {v:0};
+      anime({targets:obj, v:target, duration:900, easing:'easeOutExpo',
+        update:function(){ cell.textContent = (target < 10 ? obj.v.toFixed(1) : Math.round(obj.v)) + suffix; }});
+    });
+  }
+  function check(){
+    var h = window.innerHeight;
+    els.forEach(function(el){
+      if (el.classList.contains('in')) return;
+      var r = el.getBoundingClientRect();
+      if (r.top < h - 40 && r.bottom > 0) {
+        el.classList.add('in');
+        if (el.classList.contains('grid')) revealCards(el);
+        if (el.tagName === 'TABLE') countUp(el);
+      }
+    });
+  }
+  window.addEventListener('scroll', check, {passive:true});
+  window.addEventListener('resize', check);
+  window.addEventListener('hashchange', check);
+  window.addEventListener('load', check);
+  check();
+  setTimeout(check, 50);
+  setTimeout(check, 300);
+
+  if (window.anime) {
+    var heroTargets = document.querySelectorAll('.hero .kicker, .hero h1, .hero .lede, .hero .hero-actions .btn, .hero-plate');
+    heroTargets.forEach(function(el){ el.style.opacity = '0'; });
+    var safety = setTimeout(function(){ heroTargets.forEach(function(el){ el.style.opacity = '1'; }); }, 1400);
+    anime.timeline({easing:'easeOutCubic', complete: function(){ clearTimeout(safety); }})
+      .add({targets:'.hero .kicker', opacity:[0,1], translateY:[10,0], duration:500})
+      .add({targets:'.hero h1', opacity:[0,1], translateY:[16,0], duration:600}, '-=300')
+      .add({targets:'.hero .lede', opacity:[0,1], translateY:[14,0], duration:500}, '-=350')
+      .add({targets:'.hero .hero-actions .btn', opacity:[0,1], translateY:[10,0], delay:anime.stagger(90), duration:450}, '-=300')
+      .add({targets:'.hero-plate', opacity:[0,1], scale:[.97,1], duration:700}, '-=500');
+  }
+})();
+</script>
+</body>
+</html>

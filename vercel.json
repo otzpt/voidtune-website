@@ -57,7 +57,7 @@
     },
     {
       "source": "/",
-      "destination": "/voidtune/"
+      "destination": "/voidtune.html"
     }
   ],
   "cleanUrls": false
