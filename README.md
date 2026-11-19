@@ -1,6 +1,6 @@
 # voidtune-website
 
-The VOIDTUNE site. Hand-written static HTML — one self-contained file per
+The VOIDTUNE site. Plain static HTML, one self-contained file per
 page, CSS and JS inline, no build step and no framework.
 
 ```
@@ -14,6 +14,12 @@ api/latest.js                   serverless: current release from GitHub
 icon.png, icon.svg              site icon
 google03a73d05a97838af.html     Google Search Console verification
 ```
+
+## About this project
+
+This is vibecoded and made for my own personal use. It is on GitHub for
+version control and backup, and so anyone looking for the VOIDTUNE projects
+can find the site's source.
 
 ## Local
 
